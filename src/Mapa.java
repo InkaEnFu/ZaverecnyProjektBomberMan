@@ -22,7 +22,6 @@ public class Mapa {
         };
     }
 
-
     public int getPolicko(int x, int y) {
         return scene[y][x];
     }
