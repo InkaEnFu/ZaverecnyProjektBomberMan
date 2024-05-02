@@ -6,6 +6,10 @@ public class HerniPole extends JPanel {
     public static final int POCET_SLOUPCU = 17;
     public static final int VELIKOST_KOSTICKY = 49;
 
+    private Hrac hrac;
+    private Mapa mapa;
+
+
     public HerniPole() {
         setPreferredSize(new Dimension(POCET_SLOUPCU * VELIKOST_KOSTICKY, POCET_RADKU * VELIKOST_KOSTICKY));
     }
@@ -55,5 +59,13 @@ public class HerniPole extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
+    }
+    public void spustHru() {
+        hrac = new Hrac(this);
+        addKeyListener(hrac);
+        setFocusable(true);
+    }
+    public Mapa getMapa() {
+        return mapa;
     }
 }
