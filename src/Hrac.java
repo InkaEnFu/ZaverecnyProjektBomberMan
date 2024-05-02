@@ -15,7 +15,22 @@ public class Hrac implements KeyListener {
     private int deltaY = 0;
     private BufferedImage postavaImage;
 
+    public Hrac(HerniPole herniPole) {
+        this.herniPole = herniPole;
+        x = (herniPole.POCET_SLOUPCU / 2) * herniPole.VELIKOST_KOSTICKY;
+        y = (herniPole.POCET_RADKU / 2) * herniPole.VELIKOST_KOSTICKY;
+        rychlost = herniPole.VELIKOST_KOSTICKY;
+        herniPole.addKeyListener(this);
 
+        try {
+            postavaImage = ImageIO.read(new File("src/Postava.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Thread thread = new Thread(this::pohyb);
+        thread.start();
+    }
 
     public void vykreslit(Graphics g) {
         if (postavaImage != null) {
@@ -42,8 +57,6 @@ public class Hrac implements KeyListener {
             }
         }
     }
-
-
 
     @Override
     public void keyTyped(KeyEvent e) {
