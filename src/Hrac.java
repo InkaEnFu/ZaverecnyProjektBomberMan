@@ -98,10 +98,18 @@ public class Hrac implements KeyListener {
                     zobrazBomby = true;
                     bombaX = (x / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
                     bombaY = (y / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(3000);
+                            zobrazBomby = false;
+                            herniPole.repaint();
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }).start();
                 }
                 break;
-
-                }
+        }
         herniPole.repaint();
     }
 
