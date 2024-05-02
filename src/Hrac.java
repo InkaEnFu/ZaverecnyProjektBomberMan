@@ -14,6 +14,10 @@ public class Hrac implements KeyListener {
     private int deltaX = 0;
     private int deltaY = 0;
     private BufferedImage postavaImage;
+    private BufferedImage bombaImage;
+    private boolean zobrazBomby = false;
+    private int bombaX = -1;
+    private int bombaY = -1;
 
     public Hrac(HerniPole herniPole) {
         this.herniPole = herniPole;
