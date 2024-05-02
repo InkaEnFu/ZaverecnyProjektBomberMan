@@ -28,6 +28,7 @@ public class Hrac implements KeyListener {
 
         try {
             postavaImage = ImageIO.read(new File("src/Postava.png"));
+            bombaImage = ImageIO.read(new File("src/Bomba.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +41,13 @@ public class Hrac implements KeyListener {
         if (postavaImage != null) {
             g.drawImage(postavaImage, x, y, herniPole.VELIKOST_KOSTICKY, herniPole.VELIKOST_KOSTICKY, null);
         }
-    }
+            if (zobrazBomby && bombaImage != null) {
+                if (bombaX != -1 && bombaY != -1) {
+                    g.drawImage(bombaImage, bombaX - bombaImage.getWidth() / 2, bombaY - bombaImage.getHeight() / 2, null);
+                }
+            }
+        }
+
     private void pohyb() {
         while (true) {
             int novaX = x + (deltaX != 0 ? (deltaX / Math.abs(deltaX)) * herniPole.VELIKOST_KOSTICKY : 0);
@@ -86,8 +93,15 @@ public class Hrac implements KeyListener {
                 deltaX = herniPole.VELIKOST_KOSTICKY;
                 deltaY = 0;
                 break;
+            case KeyEvent.VK_SPACE:
+                if(!zobrazBomby){
+                    zobrazBomby = true;
+                    bombaX = (x / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
+                    bombaY = (y / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
+                }
+                break;
 
-        }
+                }
         herniPole.repaint();
     }
 
