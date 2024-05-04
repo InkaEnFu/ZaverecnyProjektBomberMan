@@ -105,13 +105,26 @@ public class Hrac implements KeyListener {
                 deltaY = 0;
                 break;
             case KeyEvent.VK_SPACE:
-                if(!zobrazBomby){
+                if (!zobrazBomby) {
                     zobrazBomby = true;
                     bombaX = (x / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
                     bombaY = (y / herniPole.VELIKOST_KOSTICKY) * herniPole.VELIKOST_KOSTICKY + herniPole.VELIKOST_KOSTICKY / 2;
+                    herniPole.repaint();
+
                     new Thread(() -> {
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(2000);
+                            zobrazOhen = true;
+                            ohnovePozice.add(new Point(bombaX, bombaY - herniPole.VELIKOST_KOSTICKY));
+                            ohnovePozice.add(new Point(bombaX, bombaY + herniPole.VELIKOST_KOSTICKY));
+                            ohnovePozice.add(new Point(bombaX + herniPole.VELIKOST_KOSTICKY, bombaY));
+                            ohnovePozice.add(new Point(bombaX - herniPole.VELIKOST_KOSTICKY, bombaY));
+                            herniPole.repaint();
+                            Thread.sleep(2000);
+                            zobrazOhen = false;
+                            ohnovePozice.clear();
+                            bombaX = -1;
+                            bombaY = -1;
                             zobrazBomby = false;
                             herniPole.repaint();
                         } catch (InterruptedException ex) {
