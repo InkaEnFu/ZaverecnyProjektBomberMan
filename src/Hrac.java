@@ -52,6 +52,11 @@ public class Hrac implements KeyListener {
                     g.drawImage(bombaImage, bombaX - bombaImage.getWidth() / 2, bombaY - bombaImage.getHeight() / 2, null);
                 }
             }
+        if (zobrazOhen && ohenImage != null) {
+            for (Point pozice : ohnovePozice) {
+                g.drawImage(ohenImage, pozice.x - ohenImage.getWidth() / 2, pozice.y - ohenImage.getHeight() / 2, null);
+            }
+        }
         }
 
     private void pohyb() {
