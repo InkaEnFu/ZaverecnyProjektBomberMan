@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hrac implements KeyListener {
     private int x;
@@ -15,9 +17,12 @@ public class Hrac implements KeyListener {
     private int deltaY = 0;
     private BufferedImage postavaImage;
     private BufferedImage bombaImage;
+    private BufferedImage ohenImage;
     private boolean zobrazBomby = false;
     private int bombaX = -1;
     private int bombaY = -1;
+    private boolean zobrazOhen = false;
+    private List<Point> ohnovePozice = new ArrayList<>();
 
     public Hrac(HerniPole herniPole) {
         this.herniPole = herniPole;
@@ -29,6 +34,7 @@ public class Hrac implements KeyListener {
         try {
             postavaImage = ImageIO.read(new File("src/Postava.png"));
             bombaImage = ImageIO.read(new File("src/Bomba.png"));
+            ohenImage = ImageIO.read(new File("src/Ohen.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
