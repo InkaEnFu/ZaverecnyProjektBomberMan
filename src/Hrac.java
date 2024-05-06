@@ -54,7 +54,11 @@ public class Hrac implements KeyListener {
             }
         if (zobrazOhen && ohenImage != null) {
             for (Point pozice : ohnovePozice) {
-                g.drawImage(ohenImage, pozice.x - ohenImage.getWidth() / 2, pozice.y - ohenImage.getHeight() / 2, null);
+                int indexX = pozice.x / herniPole.VELIKOST_KOSTICKY;
+                int indexY = pozice.y / herniPole.VELIKOST_KOSTICKY;
+                if (herniPole.getMapa().getPolicko(indexX, indexY) == 0) {
+                    g.drawImage(ohenImage, pozice.x - ohenImage.getWidth() / 2, pozice.y - ohenImage.getHeight() / 2, null);
+                }
             }
         }
         }

@@ -57,7 +57,7 @@ public class HerniPole extends JPanel {
             hrac.vykreslit(g);
         }
     }
-    public static void vytvorAProvedGUI() {
+    public static void provedGui() {
         JFrame frame = new JFrame("Herní pole");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
