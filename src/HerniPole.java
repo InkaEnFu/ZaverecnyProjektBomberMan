@@ -28,7 +28,6 @@ public class HerniPole extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-
         g.drawRect(0, 0, POCET_SLOUPCU * VELIKOST_KOSTICKY, POCET_RADKU * VELIKOST_KOSTICKY);
 
         for (int row = 0; row < POCET_RADKU; row++) {
@@ -36,23 +35,24 @@ public class HerniPole extends JPanel {
                 int x = col * VELIKOST_KOSTICKY;
                 int y = row * VELIKOST_KOSTICKY;
 
-                if (row == 0 || col == 0 || row == POCET_RADKU - 1 || col == POCET_SLOUPCU - 1) {
-                    g.setColor(BarvaKostky.SEDE.getBarva());
-                    g.fillRect(x, y, VELIKOST_KOSTICKY, VELIKOST_KOSTICKY);
-                } else if (row == 1 || col == 1 || row == POCET_RADKU - 2 || col == POCET_SLOUPCU - 2) {
-                    g.setColor(BarvaKostky.ZELENA.getBarva());
-                    g.fillRect(x, y, VELIKOST_KOSTICKY, VELIKOST_KOSTICKY);
+                int policko = mapa.getPolicko(col, row);
+                Color barva;
+
+                if (policko == 1) {
+                    barva = BarvaKostky.SEDE.getBarva();
+                } else if (policko == 2) {
+                    barva = Color.BLACK;
+                } else if (policko == 3) {
+                    barva = BarvaKostky.HNEDA.getBarva();
                 } else {
-                    if (row % 2 == 0 && col % 2 == 0) {
-                        g.setColor(BarvaKostky.HNEDA.getBarva());
-                        g.fillRect(x, y, VELIKOST_KOSTICKY, VELIKOST_KOSTICKY);
-                    } else {
-                        g.setColor(BarvaKostky.ZELENA.getBarva());
-                        g.fillRect(x, y, VELIKOST_KOSTICKY, VELIKOST_KOSTICKY);
-                    }
+                    barva = BarvaKostky.ZELENA.getBarva();
                 }
+
+                g.setColor(barva);
+                g.fillRect(x, y, VELIKOST_KOSTICKY, VELIKOST_KOSTICKY);
             }
         }
+
         if (hrac != null) {
             hrac.vykreslit(g);
         }
