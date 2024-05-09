@@ -12,14 +12,16 @@ public class GameBoard extends JPanel {
 
     private Player player;
     private Map map;
+    private Bomb bomb;
 
-    private BufferedImage postavaImage;
+    private BufferedImage playerImage;
 
     public GameBoard() {
         map = new Map();
+        bomb = new Bomb();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
-            postavaImage = ImageIO.read(new File("src/Player.png"));
+            playerImage = ImageIO.read(new File("src/Player.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,4 +81,5 @@ public class GameBoard extends JPanel {
     public Map getMap() {
         return map;
     }
+    public Bomb getBomb(){ return bomb;}
 }

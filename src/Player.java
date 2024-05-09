@@ -15,7 +15,7 @@ public class Player implements KeyListener {
     private GameBoard gameBoard;
     private int deltaX = 0;
     private int deltaY = 0;
-    private BufferedImage playereImage;
+    private BufferedImage playerImage;
     private BufferedImage bombImage;
     private BufferedImage fireImage;
     private boolean showBomb = false;
@@ -32,7 +32,7 @@ public class Player implements KeyListener {
         gameBoard.addKeyListener(this);
 
         try {
-            playereImage = ImageIO.read(new File("src/Player.png"));
+            playerImage = ImageIO.read(new File("src/Player.png"));
             bombImage = ImageIO.read(new File("src/Bomb.png"));
             fireImage = ImageIO.read(new File("src/Fire.png"));
         } catch (IOException e) {
@@ -44,8 +44,8 @@ public class Player implements KeyListener {
     }
 
     public void print(Graphics g) {
-        if (playereImage != null) {
-            g.drawImage(playereImage, x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE, null);
+        if (playerImage != null) {
+            g.drawImage(playerImage, x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE, null);
         }
             if (showBomb && bombImage != null) {
                 if (bombX != -1 && bombY != -1) {
@@ -124,6 +124,7 @@ public class Player implements KeyListener {
                             fireLocation.add(new Point(bombX + gameBoard.TILE_SIZE, bombY));
                             fireLocation.add(new Point(bombX - gameBoard.TILE_SIZE, bombY));
                             gameBoard.repaint();
+                            gameBoard.getBomb().explode(bombX / gameBoard.TILE_SIZE, bombY / gameBoard.TILE_SIZE, gameBoard.getMap().getScene());
                             Thread.sleep(2000);
                             showFire = false;
                             fireLocation.clear();

@@ -24,4 +24,7 @@ public class Map {
     public int getTile(int x, int y) {
         return scene[y][x];
     }
+    public int[][] getScene() {
+        return scene;
+    }
 }
