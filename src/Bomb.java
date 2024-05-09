@@ -3,12 +3,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Bomba {
-    private BufferedImage bombaImage;
+public class Bomb {
+    private BufferedImage bombImage;
 
-    public Bomba() {
+    public Bomb() {
         try {
-            bombaImage = ImageIO.read(new File("Bomba.png"));
+            bombImage = ImageIO.read(new File("Bomb.png"));
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -16,7 +16,7 @@ public class Bomba {
     }
 
 
-    public BufferedImage getBombaImage() {
-        return bombaImage;
+    public BufferedImage getBombImage() {
+        return bombImage;
     }
 }

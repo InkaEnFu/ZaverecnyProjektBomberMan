@@ -1,7 +1,7 @@
-public class Mapa {
+public class Map {
     private int[][] scene;
 
-    public Mapa() {
+    public Map() {
 
         this.scene = new int[][]{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -21,7 +21,7 @@ public class Mapa {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         };
     }
-    public int getPolicko(int x, int y) {
+    public int getTile(int x, int y) {
         return scene[y][x];
     }
 }
