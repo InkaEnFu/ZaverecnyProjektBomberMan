@@ -23,10 +23,12 @@ public class Bomb {
     public void explode(int x, int y, int[][] scene) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                int newX = x + i;
-                int newY = y + j;
-                if (newX >= 0 && newX < scene[0].length && newY >= 0 && newY < scene.length && scene[newY][newX] == 2) {
-                    scene[newY][newX] = 0;
+                if ((i == 0 && j != 0) || (i != 0 && j == 0)) {
+                    int newX = x + i;
+                    int newY = y + j;
+                    if (newX >= 0 && newX < scene[0].length && newY >= 0 && newY < scene.length && scene[newY][newX] == 2) {
+                        scene[newY][newX] = 0;
+                    }
                 }
             }
         }
