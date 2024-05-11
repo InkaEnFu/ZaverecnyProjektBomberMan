@@ -26,8 +26,10 @@ public class Bomb {
                 if ((i == 0 && j != 0) || (i != 0 && j == 0)) {
                     int newX = x + i;
                     int newY = y + j;
-                    if (newX >= 0 && newX < scene[0].length && newY >= 0 && newY < scene.length && scene[newY][newX] == 2) {
-                        scene[newY][newX] = 0;
+                    if (newX >= 0 && newX < scene[0].length && newY >= 0 && newY < scene.length) {
+                        if (scene[newY][newX] == 2) {
+                            scene[newY][newX] = 4;
+                        }
                     }
                 }
             }

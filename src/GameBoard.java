@@ -13,8 +13,10 @@ public class GameBoard extends JPanel {
     private Player player;
     private Map map;
     private Bomb bomb;
-
     private BufferedImage playerImage;
+    private BufferedImage boostImage;
+
+
 
     public GameBoard() {
         map = new Map();
@@ -22,6 +24,7 @@ public class GameBoard extends JPanel {
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
             playerImage = ImageIO.read(new File("src/Player.png"));
+            boostImage = ImageIO.read(new File("src/Boost.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +49,9 @@ public class GameBoard extends JPanel {
                     barva = Color.BLACK;
                 } else if (policko == 3) {
                     barva = TileColour.BROWN.getColour();
+                } else if (policko == 4) {
+                    g.drawImage(boostImage, x, y, TILE_SIZE, TILE_SIZE, null);
+                    continue;
                 } else {
                     barva = TileColour.GREEN.getColour();
                 }
