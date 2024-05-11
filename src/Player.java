@@ -74,6 +74,14 @@ public class Player implements KeyListener {
                 x = novaX;
                 y = novaY;
                 gameBoard.repaint();
+            } else if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
+                    novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
+                    gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 4) {
+
+                x = novaX;
+                y = novaY;
+                gameBoard.getMap().getScene()[y / gameBoard.TILE_SIZE][x / gameBoard.TILE_SIZE] = 0;
+                gameBoard.repaint();
             }
 
             try {
@@ -84,7 +92,8 @@ public class Player implements KeyListener {
         }
     }
 
-    @Override
+
+            @Override
     public void keyTyped(KeyEvent e) {
     }
 
