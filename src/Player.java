@@ -23,6 +23,8 @@ public class Player implements KeyListener {
     private int bombY = -1;
     private boolean showFire = false;
     private List<Point> fireLocation = new ArrayList<>();
+    private boolean isGameOver = false;
+    private boolean playerWasOnFire = false;
 
     public Player(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -41,6 +43,16 @@ public class Player implements KeyListener {
 
         Thread thread = new Thread(this::movement);
         thread.start();
+        new Thread(() -> {
+            while (true) {
+                checkFireCollision();
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void print(Graphics g) {
@@ -149,6 +161,7 @@ public class Player implements KeyListener {
                 break;
         }
         gameBoard.repaint();
+        checkFireCollision();
     }
 
     @Override
@@ -165,5 +178,32 @@ public class Player implements KeyListener {
                 break;
         }
     }
+    private void checkFireCollision() {
+        if (showFire) {
+            Rectangle playerRect = new Rectangle(x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+            for (Point firePos : fireLocation) {
+                Rectangle fireRect = new Rectangle(firePos.x - gameBoard.TILE_SIZE / 2, firePos.y - gameBoard.TILE_SIZE / 2, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+                if (playerRect.intersects(fireRect)) {
 
+                    if (!isGameOver) {
+                        new Frame();
+                        isGameOver = true;
+                    }
+                    return;
+                }
+            }
+            if (playerWasOnFire && fireLocation.contains(new Point(x, y))) {
+                if (!isGameOver) {
+                    new Frame();
+                    isGameOver = true;
+                }
+                return;
+            }
+
+            playerWasOnFire = fireLocation.contains(new Point(x, y));
+        }
+    }
 }
+
+
+
