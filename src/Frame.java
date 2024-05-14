@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
-    public Frame() {
+    private GameBoard gameBoard;
+    public Frame(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
         setTitle("Game Over");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
@@ -23,6 +25,7 @@ public class Frame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                gameBoard.getMainFrame().dispose();
                 Main.main(new String[0]);
             }
         });
@@ -31,4 +34,5 @@ public class Frame extends JFrame {
         add(panel);
         setVisible(true);
     }
+
 }

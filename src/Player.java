@@ -111,6 +111,9 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if(isGameOver) {
+            return;
+        }
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_W:
@@ -166,6 +169,9 @@ public class Player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(isGameOver) {
+            return;
+        }
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_W:
@@ -184,9 +190,8 @@ public class Player implements KeyListener {
             for (Point firePos : fireLocation) {
                 Rectangle fireRect = new Rectangle(firePos.x - gameBoard.TILE_SIZE / 2, firePos.y - gameBoard.TILE_SIZE / 2, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
                 if (playerRect.intersects(fireRect)) {
-
                     if (!isGameOver) {
-                        new Frame();
+                        new Frame(gameBoard);
                         isGameOver = true;
                     }
                     return;
@@ -194,16 +199,26 @@ public class Player implements KeyListener {
             }
             if (playerWasOnFire && fireLocation.contains(new Point(x, y))) {
                 if (!isGameOver) {
-                    new Frame();
+                    new Frame(gameBoard);
                     isGameOver = true;
                 }
                 return;
             }
-
+            int playerTileX = x / gameBoard.TILE_SIZE;
+            int playerTileY = y / gameBoard.TILE_SIZE;
+            if (bombX != -1 && bombY != -1 && playerTileX == bombX / gameBoard.TILE_SIZE && playerTileY == bombY / gameBoard.TILE_SIZE) {
+                if (!isGameOver) {
+                    new Frame(gameBoard);
+                    isGameOver = true;
+                }
+                return;
+            }
             playerWasOnFire = fireLocation.contains(new Point(x, y));
         }
     }
+
 }
+
 
 
 

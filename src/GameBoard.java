@@ -16,6 +16,7 @@ public class GameBoard extends JPanel {
     private BufferedImage playerImage;
     private BufferedImage boostImage;
 
+    private JFrame mainFrame;
 
 
     public GameBoard() {
@@ -71,6 +72,7 @@ public class GameBoard extends JPanel {
 
         GameBoard gameBoard = new GameBoard();
         frame.add(gameBoard);
+        gameBoard.mainFrame = frame;
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -88,4 +90,7 @@ public class GameBoard extends JPanel {
         return map;
     }
     public Bomb getBomb(){ return bomb;}
+    public JFrame getMainFrame() {
+        return mainFrame;
+    }
 }
