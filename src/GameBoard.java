@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameBoard extends JPanel {
     public static final int ROW_COUNT = 15;
@@ -16,12 +19,15 @@ public class GameBoard extends JPanel {
     private BufferedImage playerImage;
     private BufferedImage boostImage;
 
+    private List<Enemy> enemies;
+
     private JFrame mainFrame;
 
 
     public GameBoard() {
         map = new Map();
         bomb = new Bomb();
+        enemies = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
             playerImage = ImageIO.read(new File("src/Player.png"));
@@ -65,7 +71,25 @@ public class GameBoard extends JPanel {
         if (player != null) {
             player.print(g);
         }
+        for (Enemy enemy : enemies) {
+            enemy.draw(g, enemy.getX(), enemy.getY(), TILE_SIZE);
+        }
     }
+    public void spawnEnemies() {
+        Random random = new Random();
+
+        int xRange = COLUMN_COUNT * TILE_SIZE;
+        int yRange = ROW_COUNT * TILE_SIZE;
+
+        Skeleton skeleton = new Skeleton(random.nextInt(xRange), random.nextInt(yRange));
+        Slime slime = new Slime(random.nextInt(xRange), random.nextInt(yRange));
+        Dragon dragon = new Dragon(random.nextInt(xRange), random.nextInt(yRange));
+
+        enemies.add(skeleton);
+        enemies.add(slime);
+        enemies.add(dragon);
+    }
+
     public static void doGui() {
         JFrame frame = new JFrame("GameBoard");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,6 +103,8 @@ public class GameBoard extends JPanel {
         frame.setResizable(false);
         frame.setVisible(true);
 
+
+        gameBoard.spawnEnemies();
         gameBoard.startGame();
     }
     public void startGame() {
