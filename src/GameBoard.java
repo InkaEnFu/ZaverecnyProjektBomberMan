@@ -78,16 +78,34 @@ public class GameBoard extends JPanel {
     public void spawnEnemies() {
         Random random = new Random();
 
-        int xRange = COLUMN_COUNT * TILE_SIZE;
-        int yRange = ROW_COUNT * TILE_SIZE;
+        List<Point> freeTiles = new ArrayList<>();
+        for(int row = 0; row < ROW_COUNT; row++) {
+            for(int col = 0; col < COLUMN_COUNT; col++) {
+                if(map.getTile(col, row) == 0) {
+                    freeTiles.add(new Point(col * TILE_SIZE, row *TILE_SIZE));
+                }
+            }
+        }
+        for(int i = 0; i <3; i++){
+            if(freeTiles.isEmpty()){
+                break;
+            }
+            Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
+            Enemy enemy;
+            switch (i) {
+                case 0:
+                    enemy = new Skeleton(spawnPoint.x, spawnPoint.y);
+                    break;
+                case 1:
+                    enemy = new Slime(spawnPoint.x, spawnPoint.y);
+                    break;
+                default:
+                    enemy = new Dragon(spawnPoint.x, spawnPoint.y);
+                    break;
+            }
 
-        Skeleton skeleton = new Skeleton(random.nextInt(xRange), random.nextInt(yRange));
-        Slime slime = new Slime(random.nextInt(xRange), random.nextInt(yRange));
-        Dragon dragon = new Dragon(random.nextInt(xRange), random.nextInt(yRange));
-
-        enemies.add(skeleton);
-        enemies.add(slime);
-        enemies.add(dragon);
+            enemies.add(enemy);
+        }
     }
 
     public static void doGui() {
