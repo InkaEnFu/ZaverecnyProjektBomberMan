@@ -79,28 +79,28 @@ public class GameBoard extends JPanel {
         Random random = new Random();
 
         List<Point> freeTiles = new ArrayList<>();
-        for(int row = 0; row < ROW_COUNT; row++) {
-            for(int col = 0; col < COLUMN_COUNT; col++) {
-                if(map.getTile(col, row) == 0) {
-                    freeTiles.add(new Point(col * TILE_SIZE, row *TILE_SIZE));
+        for (int row = 0; row < ROW_COUNT; row++) {
+            for (int col = 0; col < COLUMN_COUNT; col++) {
+                if (map.getTile(col, row) == 0) {
+                    freeTiles.add(new Point(col * TILE_SIZE, row * TILE_SIZE));
                 }
             }
         }
-        for(int i = 0; i <3; i++){
-            if(freeTiles.isEmpty()){
+        for (int i = 0; i < 3; i++) {
+            if (freeTiles.isEmpty()) {
                 break;
             }
             Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
             Enemy enemy;
             switch (i) {
                 case 0:
-                    enemy = new Skeleton(spawnPoint.x, spawnPoint.y);
+                    enemy = new Skeleton(spawnPoint.x, spawnPoint.y, this);
                     break;
                 case 1:
-                    enemy = new Slime(spawnPoint.x, spawnPoint.y);
+                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this);
                     break;
                 default:
-                    enemy = new Dragon(spawnPoint.x, spawnPoint.y);
+                    enemy = new Dragon(spawnPoint.x, spawnPoint.y, this);
                     break;
             }
 
@@ -129,7 +129,21 @@ public class GameBoard extends JPanel {
         player = new Player(this);
         addKeyListener(player);
         setFocusable(true);
+        new Thread(() -> {
+            while (true) {
+                for (Enemy enemy : enemies) {
+                    enemy.movement();
+                }
+                repaint();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
+
     public Map getMap() {
         return map;
     }
