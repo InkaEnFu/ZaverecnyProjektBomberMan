@@ -65,11 +65,11 @@ public class Player implements KeyListener {
                 }
             }
         if (showFire && fireImage != null) {
-            for (Point pozice : fireLocation) {
-                int indexX = pozice.x / gameBoard.TILE_SIZE;
-                int indexY = pozice.y / gameBoard.TILE_SIZE;
+            for (Point position : fireLocation) {
+                int indexX = position.x / gameBoard.TILE_SIZE;
+                int indexY = position.y / gameBoard.TILE_SIZE;
                 if (gameBoard.getMap().getTile(indexX, indexY) == 0) {
-                    g.drawImage(fireImage, pozice.x - fireImage.getWidth() / 2, pozice.y - fireImage.getHeight() / 2, null);
+                    g.drawImage(fireImage, position.x - fireImage.getWidth() / 2, position.y - fireImage.getHeight() / 2, null);
                 }
             }
         }
@@ -191,7 +191,7 @@ public class Player implements KeyListener {
                 Rectangle fireRect = new Rectangle(firePos.x - gameBoard.TILE_SIZE / 2, firePos.y - gameBoard.TILE_SIZE / 2, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
                 if (playerRect.intersects(fireRect)) {
                     if (!isGameOver) {
-                        new Frame(gameBoard);
+                        new GameOverFrame(gameBoard);
                         isGameOver = true;
                     }
                     return;
@@ -199,7 +199,7 @@ public class Player implements KeyListener {
             }
             if (playerWasOnFire && fireLocation.contains(new Point(x, y))) {
                 if (!isGameOver) {
-                    new Frame(gameBoard);
+                    new GameOverFrame(gameBoard);
                     isGameOver = true;
                 }
                 return;
@@ -208,7 +208,7 @@ public class Player implements KeyListener {
             int playerTileY = y / gameBoard.TILE_SIZE;
             if (bombX != -1 && bombY != -1 && playerTileX == bombX / gameBoard.TILE_SIZE && playerTileY == bombY / gameBoard.TILE_SIZE) {
                 if (!isGameOver) {
-                    new Frame(gameBoard);
+                    new GameOverFrame(gameBoard);
                     isGameOver = true;
                 }
                 return;

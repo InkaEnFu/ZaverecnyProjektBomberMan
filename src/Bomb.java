@@ -5,8 +5,10 @@ import java.io.IOException;
 
 public class Bomb {
     private BufferedImage bombImage;
+    private GameBoard gameBoard;
 
-    public Bomb() {
+    public Bomb(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
         try {
             bombImage = ImageIO.read(new File("src/Bomb.png"));
         } catch (IOException e) {
@@ -30,6 +32,7 @@ public class Bomb {
                         if (scene[newY][newX] == 2) {
                             scene[newY][newX] = 4;
                         }
+                        gameBoard.checkAndRemoveEnemy(newX, newY);
                     }
                 }
             }

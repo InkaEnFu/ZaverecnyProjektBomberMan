@@ -2,37 +2,58 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 
 public class Frame extends JFrame {
     private GameBoard gameBoard;
     public Frame(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
-        setTitle("Game Over");
+        setTitle("BombreMan");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
         setResizable(false);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(new GridLayout(3, 1, 10, 10));
 
-        JLabel gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(gameOverLabel, BorderLayout.CENTER);
+        JButton playButton = new JButton("Play");
+        JButton controlButton = new JButton("Controls");
+        JButton storyButton = new JButton("Story");
 
-        JButton playAgainButton = new JButton("Play Again");
-        playAgainButton.addActionListener(new ActionListener() {
+        playButton.setFont(new Font("Arial", Font.BOLD, 24));
+        controlButton.setFont(new Font("Arial", Font.BOLD, 24));
+        storyButton.setFont(new Font("Arial", Font.BOLD, 24));
+
+        playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                gameBoard.getMainFrame().dispose();
-                Main.main(new String[0]);
+                gameBoard.doGui();
             }
         });
-        panel.add(playAgainButton, BorderLayout.SOUTH);
+
+        controlButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(Frame.this,"TODO");
+            }
+        });
+
+        storyButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(Frame.this,"TODO");
+            }
+        });
+        panel.add(playButton);
+        panel.add(controlButton);
+        panel.add(storyButton);
 
         add(panel);
         setVisible(true);
-    }
 
+
+    }
 }

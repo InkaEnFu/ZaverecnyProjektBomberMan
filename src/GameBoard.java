@@ -26,7 +26,7 @@ public class GameBoard extends JPanel {
 
     public GameBoard() {
         map = new Map();
-        bomb = new Bomb();
+        bomb = new Bomb(this);
         enemies = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
@@ -148,7 +148,9 @@ public class GameBoard extends JPanel {
         return map;
     }
     public Bomb getBomb(){ return bomb;}
-    public JFrame getMainFrame() {
-        return mainFrame;
+
+    public void checkAndRemoveEnemy(int x, int y){
+    enemies.removeIf(enemy -> enemy.getX() / TILE_SIZE == x && enemy.getY() / TILE_SIZE == y);
     }
+
 }
