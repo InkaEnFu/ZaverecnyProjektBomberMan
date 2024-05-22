@@ -21,6 +21,8 @@ public class GameBoard extends JPanel {
 
     private List<Enemy> enemies;
 
+    private List<Point> fireLocations;
+
     private JFrame mainFrame;
 
 
@@ -28,6 +30,7 @@ public class GameBoard extends JPanel {
         map = new Map();
         bomb = new Bomb(this);
         enemies = new ArrayList<>();
+        fireLocations = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
             playerImage = ImageIO.read(new File("src/Player.png"));
@@ -134,6 +137,7 @@ public class GameBoard extends JPanel {
                 for (Enemy enemy : enemies) {
                     enemy.movement();
                 }
+                checkFireCollisionWithEnemy();
                 repaint();
                 try {
                     Thread.sleep(500);
@@ -152,5 +156,18 @@ public class GameBoard extends JPanel {
     public void checkAndRemoveEnemy(int x, int y){
     enemies.removeIf(enemy -> enemy.getX() / TILE_SIZE == x && enemy.getY() / TILE_SIZE == y);
     }
+    public void updateFireLocations(List<Point> fireLocations){
+        this.fireLocations = fireLocations;
+    }
 
+    private void checkFireCollisionWithEnemy(){
+        if (fireLocations != null && !fireLocations.isEmpty()) {
+            for (Point fireLocation : fireLocations) {
+                int fireX = fireLocation.x;
+                int fireY = fireLocation.y;
+                enemies.removeIf(enemy -> enemy.getX() == fireX && enemy.getY() == fireY);
+            }
+        }
+    }
 }
+
