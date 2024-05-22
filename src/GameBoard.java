@@ -151,7 +151,12 @@ public class GameBoard extends JPanel {
     public Map getMap() {
         return map;
     }
-    public Bomb getBomb(){ return bomb;}
+    public Bomb getBomb(){
+        return bomb;
+    }
+    public List<Point> getFireLocations() {
+        return fireLocations;
+    }
 
     public void checkAndRemoveEnemy(int x, int y){
     enemies.removeIf(enemy -> enemy.getX() / TILE_SIZE == x && enemy.getY() / TILE_SIZE == y);

@@ -61,14 +61,21 @@ public class Dragon implements Enemy {
                 break;
         }
 
-
         if (newX >= 0 && newX < GameBoard.COLUMN_COUNT * tileSize &&
                 newY >= 0 && newY < GameBoard.ROW_COUNT * tileSize &&
-                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0) {
+                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0 &&
+                !isBombAtPosition(newX, newY)) {
             x = newX;
             y = newY;
         }
     }
-
+    private boolean isBombAtPosition(int x, int y){
+        for(Point firePos : gameBoard.getFireLocations()){
+            if(firePos.x == x && firePos.y == y){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
