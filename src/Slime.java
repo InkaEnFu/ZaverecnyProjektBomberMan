@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Slime implements Enemy {
@@ -67,26 +69,30 @@ public class Slime implements Enemy {
 
         if (newX >= 0 && newX < GameBoard.COLUMN_COUNT * tileSize &&
                 newY >= 0 && newY < GameBoard.ROW_COUNT * tileSize &&
-                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0 &&
-                !isBombAtPosition(newX, newY)) {
+                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0){
             x = newX;
             y = newY;
         }
-    }
-    private boolean isBombAtPosition(int x, int y){
-        for(Point firePos : gameBoard.getFireLocations()){
-            if(firePos.x == x && firePos.y == y){
-                return true;
-            }
-        }
-        return false;
     }
     @Override
     public void ability() {
         if (!hasSplit) {
             hasSplit = true;
-            gameBoard.addNewEnemy(new Slime(x, y, gameBoard));
-            gameBoard.addNewEnemy(new Slime(x, y, gameBoard));
+            List<Point> freeTiles = new ArrayList<>();
+            for (int row = 0; row < GameBoard.ROW_COUNT; row++) {
+                for (int col = 0; col < GameBoard.COLUMN_COUNT; col++) {
+                    if (gameBoard.getMap().getTile(col, row) == 0) {
+                        freeTiles.add(new Point(col * GameBoard.TILE_SIZE, row * GameBoard.TILE_SIZE));
+                    }
+                }
+            }
+
+            for (int i = 0; i < 2; i++) {
+                if (!freeTiles.isEmpty()) {
+                    Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
+                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard));
+                }
+            }
         }
     }
 }
