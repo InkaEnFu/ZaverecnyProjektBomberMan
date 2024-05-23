@@ -24,6 +24,7 @@ public class GameBoard extends JPanel {
     private List<Point> fireLocations;
 
     private JFrame mainFrame;
+    private List<Enemy> newEnemies = new ArrayList<>();
 
 
     public GameBoard() {
@@ -157,12 +158,17 @@ public class GameBoard extends JPanel {
     public List<Point> getFireLocations() {
         return fireLocations;
     }
-    public List<Enemy> getEnemies() {
-        return enemies;
-    }
 
-    public void checkAndRemoveEnemy(int x, int y){
-    enemies.removeIf(enemy -> enemy.getX() / TILE_SIZE == x && enemy.getY() / TILE_SIZE == y);
+    public void checkAndRemoveEnemy(int x, int y) {
+        enemies.removeIf(enemy -> {
+            boolean isAtPosition = enemy.getX() / TILE_SIZE == x && enemy.getY() / TILE_SIZE == y;
+            if (isAtPosition) {
+                enemy.ability();
+            }
+            return isAtPosition;
+        });
+        enemies.addAll(newEnemies);
+        newEnemies.clear();
     }
     public void updateFireLocations(List<Point> fireLocations){
         this.fireLocations = fireLocations;
@@ -176,6 +182,12 @@ public class GameBoard extends JPanel {
                 enemies.removeIf(enemy -> enemy.getX() == fireX && enemy.getY() == fireY);
             }
         }
+    }
+    public void addNewEnemy(Enemy enemy) {
+        newEnemies.add(enemy);
+    }
+    public List<Enemy> getEnemies() {
+        return enemies;
     }
 }
 

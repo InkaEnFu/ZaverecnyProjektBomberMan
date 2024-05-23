@@ -78,4 +78,9 @@ public class Skeleton implements Enemy {
         }
         return false;
     }
+    @Override
+    public void ability() {
+
+    }
+
 }

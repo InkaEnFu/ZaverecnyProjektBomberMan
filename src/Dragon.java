@@ -12,6 +12,7 @@ public class Dragon implements Enemy {
     private Random random;
     private GameBoard gameBoard;
 
+
     public Dragon(int x, int y, GameBoard gameBoard) {
         this.x = x;
         this.y = y;
@@ -76,6 +77,10 @@ public class Dragon implements Enemy {
             }
         }
         return false;
+    }
+    @Override
+    public void ability() {
+
     }
 }
 

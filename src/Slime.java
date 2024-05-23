@@ -11,12 +11,14 @@ public class Slime implements Enemy {
     private BufferedImage image;
     private Random random;
     private GameBoard gameBoard;
+    private boolean hasSplit;
 
     public Slime(int x, int y, GameBoard gameBoard) {
         this.x = x;
         this.y = y;
         this.random = new Random();
         this.gameBoard = gameBoard;
+        this.hasSplit = false;
         try {
             image = ImageIO.read(new File("src/Slime.png"));
         } catch (IOException e) {
@@ -78,5 +80,13 @@ public class Slime implements Enemy {
             }
         }
         return false;
+    }
+    @Override
+    public void ability() {
+        if (!hasSplit) {
+            hasSplit = true;
+            gameBoard.addNewEnemy(new Slime(x, y, gameBoard));
+            gameBoard.addNewEnemy(new Slime(x, y, gameBoard));
+        }
     }
 }
