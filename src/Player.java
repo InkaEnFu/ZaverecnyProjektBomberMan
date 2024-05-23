@@ -45,6 +45,7 @@ public class Player implements KeyListener {
         thread.start();
         new Thread(() -> {
             while (true) {
+                checkEnemyCollision();
                 checkFireCollision();
                 try {
                     Thread.sleep(50);
@@ -214,6 +215,19 @@ public class Player implements KeyListener {
                 return;
             }
             playerWasOnFire = fireLocation.contains(new Point(x, y));
+        }
+    }
+    private void checkEnemyCollision() {
+        Rectangle playerRect = new Rectangle(x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+        for (Enemy enemy : gameBoard.getEnemies()) {
+            Rectangle enemyRect = new Rectangle(enemy.getX(), enemy.getY(), gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+            if (playerRect.intersects(enemyRect)) {
+                if (!isGameOver) {
+                    new GameOverFrame(gameBoard);
+                    isGameOver = true;
+                }
+                return;
+            }
         }
     }
 
