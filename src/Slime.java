@@ -15,12 +15,15 @@ public class Slime implements Enemy {
     private GameBoard gameBoard;
     private boolean hasSplit;
 
-    public Slime(int x, int y, GameBoard gameBoard) {
+    private boolean original;
+
+    public Slime(int x, int y, GameBoard gameBoard, boolean original) {
         this.x = x;
         this.y = y;
         this.random = new Random();
         this.gameBoard = gameBoard;
         this.hasSplit = false;
+        this.original = original;
         try {
             image = ImageIO.read(new File("src/Slime.png"));
         } catch (IOException e) {
@@ -74,9 +77,10 @@ public class Slime implements Enemy {
             y = newY;
         }
     }
+
     @Override
     public void ability() {
-        if (!hasSplit) {
+        if (!hasSplit && original) {
             hasSplit = true;
             List<Point> freeTiles = new ArrayList<>();
             for (int row = 0; row < GameBoard.ROW_COUNT; row++) {
@@ -90,7 +94,7 @@ public class Slime implements Enemy {
             for (int i = 0; i < 2; i++) {
                 if (!freeTiles.isEmpty()) {
                     Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
-                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard));
+                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard, false)); // duplicated slimes are not original
                 }
             }
         }

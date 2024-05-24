@@ -101,7 +101,7 @@ public class GameBoard extends JPanel {
                     enemy = new Skeleton(spawnPoint.x, spawnPoint.y, this);
                     break;
                 case 1:
-                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this);
+                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this, true);
                     break;
                 default:
                     enemy = new Dragon(spawnPoint.x, spawnPoint.y, this);
