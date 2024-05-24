@@ -94,7 +94,7 @@ public class Slime implements Enemy {
             for (int i = 0; i < 2; i++) {
                 if (!freeTiles.isEmpty()) {
                     Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
-                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard, false));
+                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard, false)); // duplicated slimes are not original
                 }
             }
         }
