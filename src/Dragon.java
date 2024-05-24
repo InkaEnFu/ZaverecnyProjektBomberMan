@@ -41,7 +41,6 @@ public class Dragon implements Enemy {
     }
     @Override
     public void movement() {
-
         int moveDirection = random.nextInt(4);
         int tileSize = GameBoard.TILE_SIZE;
         int newX = x;
@@ -64,7 +63,8 @@ public class Dragon implements Enemy {
 
         if (newX >= 0 && newX < GameBoard.COLUMN_COUNT * tileSize &&
                 newY >= 0 && newY < GameBoard.ROW_COUNT * tileSize &&
-                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0){
+                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0 &&
+                !gameBoard.isBombAt(newX / tileSize, newY / tileSize)) {
 
             x = newX;
             y = newY;

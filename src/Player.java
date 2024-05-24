@@ -112,7 +112,7 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(isGameOver) {
+        if (isGameOver) {
             return;
         }
         int key = e.getKeyCode();
@@ -138,6 +138,7 @@ public class Player implements KeyListener {
                     showBomb = true;
                     bombX = (x / gameBoard.TILE_SIZE) * gameBoard.TILE_SIZE + gameBoard.TILE_SIZE / 2;
                     bombY = (y / gameBoard.TILE_SIZE) * gameBoard.TILE_SIZE + gameBoard.TILE_SIZE / 2;
+                    gameBoard.getBomb().setPosition(bombX / gameBoard.TILE_SIZE, bombY / gameBoard.TILE_SIZE);
                     gameBoard.repaint();
 
                     new Thread(() -> {

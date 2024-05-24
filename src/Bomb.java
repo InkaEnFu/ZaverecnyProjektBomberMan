@@ -9,6 +9,8 @@ import java.util.List;
 public class Bomb {
     private BufferedImage bombImage;
     private GameBoard gameBoard;
+    private int x;
+    private int y;
 
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -18,6 +20,18 @@ public class Bomb {
             e.printStackTrace();
 
         }
+    }
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
 

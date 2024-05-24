@@ -101,7 +101,7 @@ public class GameBoard extends JPanel {
                     enemy = new Skeleton(spawnPoint.x, spawnPoint.y, this);
                     break;
                 case 1:
-                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this);
+                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this, true);
                     break;
                 default:
                     enemy = new Dragon(spawnPoint.x, spawnPoint.y, this);
@@ -189,5 +189,10 @@ public class GameBoard extends JPanel {
     public List<Enemy> getEnemies() {
         return enemies;
     }
+    public boolean isBombAt(int x, int y) {
+        Bomb bomb = getBomb();
+        return bomb.getX() == x && bomb.getY() == y;
+    }
 }
+
 

@@ -46,9 +46,9 @@ public class Slime implements Enemy {
         return y;
     }
 
+
     @Override
     public void movement() {
-
         int moveDirection = random.nextInt(4);
         int tileSize = GameBoard.TILE_SIZE;
         int newX = x;
@@ -69,15 +69,15 @@ public class Slime implements Enemy {
                 break;
         }
 
-
         if (newX >= 0 && newX < GameBoard.COLUMN_COUNT * tileSize &&
                 newY >= 0 && newY < GameBoard.ROW_COUNT * tileSize &&
-                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0){
+                gameBoard.getMap().getTile(newX / tileSize, newY / tileSize) == 0 &&
+                !gameBoard.isBombAt(newX / tileSize, newY / tileSize)) {
+
             x = newX;
             y = newY;
         }
     }
-
     @Override
     public void ability() {
         if (!hasSplit && original) {
@@ -94,7 +94,7 @@ public class Slime implements Enemy {
             for (int i = 0; i < 2; i++) {
                 if (!freeTiles.isEmpty()) {
                     Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
-                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard, false)); // duplicated slimes are not original
+                    gameBoard.addNewEnemy(new Slime(spawnPoint.x, spawnPoint.y, gameBoard, false));
                 }
             }
         }
