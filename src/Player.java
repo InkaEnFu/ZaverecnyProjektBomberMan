@@ -47,6 +47,7 @@ public class Player implements KeyListener {
             while (true) {
                 checkEnemyCollision();
                 checkFireCollision();
+                checkFireBallCollision();
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
@@ -228,6 +229,27 @@ public class Player implements KeyListener {
                     isGameOver = true;
                 }
                 return;
+            }
+        }
+    }
+
+    private void checkFireBallCollision() {
+        for (Enemy enemy : gameBoard.getEnemies()) {
+            if (enemy instanceof Dragon) {
+                Dragon dragon = (Dragon) enemy;
+                if (dragon.showFireBall) {
+                    for (Point fireBallPos : dragon.getFireBallLocations()) {
+                        Rectangle fireBallRect = new Rectangle(fireBallPos.x, fireBallPos.y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+                        Rectangle playerRect = new Rectangle(x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+                        if (playerRect.intersects(fireBallRect)) {
+                            if (!isGameOver) {
+                                new GameOverFrame(gameBoard);
+                                isGameOver = true;
+                            }
+                            return;
+                        }
+                    }
+                }
             }
         }
     }
