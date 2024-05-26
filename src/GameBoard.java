@@ -23,7 +23,7 @@ public class GameBoard extends JPanel {
 
     private List<Point> fireLocations;
 
-    private JFrame mainFrame;
+    public JFrame mainFrame;
     private List<Enemy> newEnemies = new ArrayList<>();
 
 

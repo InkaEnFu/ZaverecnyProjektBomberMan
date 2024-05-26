@@ -37,16 +37,26 @@ public class Frame extends JFrame {
         controlButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(Frame.this,"TODO");
+                JOptionPane.showMessageDialog(Frame.this,
+                        "Controls:\n" +
+                                "Space - Place bomb\n" +
+                                "W - Go Up\n" +
+                                "S - Go Down\n" +
+                                "A - Go Left\n" +
+                                "D - Go Right");
             }
         });
 
-        storyButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(Frame.this,"TODO");
-            }
-        });
+            storyButton.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    JOptionPane.showMessageDialog(Frame.this,"Trapped in a maze, a robot named BomberMan seeks freedom.\n" +
+                            "But three levels stand in his way, each filled with enemies.\n" +
+                            "To escape, he must outsmart them all, using bombs as his key to break through obstacles.\n" +
+                            "Will he succeed, or will the maze keep him captive?\n" +
+                            "That is only up to you!");
+                }
+            });
         panel.add(playButton);
         panel.add(controlButton);
         panel.add(storyButton);

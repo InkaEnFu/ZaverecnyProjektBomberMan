@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 
 public class GameOverFrame extends JFrame {
     private GameBoard gameBoard;
+    private JFrame previousFrame;
 
-    public GameOverFrame(GameBoard gameBoard) {
+    public GameOverFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
+        this.previousFrame = previousFrame;
         setTitle("Game Over");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -29,6 +31,7 @@ public class GameOverFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                previousFrame.dispose();
                 GameBoard.doGui();
             }
         });
