@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -75,7 +76,8 @@ public class GameBoard extends JPanel {
         if (player != null) {
             player.print(g);
         }
-        for (Enemy enemy : enemies) {
+        List<Enemy> enemiesCopy = new ArrayList<>(enemies);
+        for (Enemy enemy : enemiesCopy) {
             enemy.draw(g, enemy.getX(), enemy.getY(), TILE_SIZE);
         }
     }
@@ -179,7 +181,13 @@ public class GameBoard extends JPanel {
             for (Point fireLocation : fireLocations) {
                 int fireX = fireLocation.x;
                 int fireY = fireLocation.y;
-                enemies.removeIf(enemy -> enemy.getX() == fireX && enemy.getY() == fireY);
+                Iterator<Enemy> iterator = enemies.iterator();
+                while (iterator.hasNext()) {
+                    Enemy enemy = iterator.next();
+                    if (enemy.getX() == fireX && enemy.getY() == fireY) {
+                        iterator.remove();
+                    }
+                }
             }
         }
     }

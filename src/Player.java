@@ -25,6 +25,7 @@ public class Player implements KeyListener {
     private List<Point> fireLocation = new ArrayList<>();
     private boolean isGameOver = false;
     private boolean playerWasOnFire = false;
+    private boolean isStunned = false;
 
     public Player(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -79,29 +80,38 @@ public class Player implements KeyListener {
 
     private void movement() {
         while (true) {
-            int novaX = x + (deltaX != 0 ? (deltaX / Math.abs(deltaX)) * gameBoard.TILE_SIZE : 0);
-            int novaY = y + (deltaY != 0 ? (deltaY / Math.abs(deltaY)) * gameBoard.TILE_SIZE : 0);
+            if (isStunned) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isStunned = false;
+            } else {
+                int novaX = x + (deltaX != 0 ? (deltaX / Math.abs(deltaX)) * gameBoard.TILE_SIZE : 0);
+                int novaY = y + (deltaY != 0 ? (deltaY / Math.abs(deltaY)) * gameBoard.TILE_SIZE : 0);
 
-            if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
-                    novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
-                    gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 0) {
-                x = novaX;
-                y = novaY;
-                gameBoard.repaint();
-            } else if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
-                    novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
-                    gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 4) {
+                if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 0) {
+                    x = novaX;
+                    y = novaY;
+                    gameBoard.repaint();
+                } else if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 4) {
 
-                x = novaX;
-                y = novaY;
-                gameBoard.getMap().getScene()[y / gameBoard.TILE_SIZE][x / gameBoard.TILE_SIZE] = 0;
-                gameBoard.repaint();
-            }
+                    x = novaX;
+                    y = novaY;
+                    gameBoard.getMap().getScene()[y / gameBoard.TILE_SIZE][x / gameBoard.TILE_SIZE] = 0;
+                    gameBoard.repaint();
+                }
 
-            try {
-                Thread.sleep(130);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(130);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -113,7 +123,7 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (isGameOver) {
+        if (isGameOver || isStunned) {
             return;
         }
         int key = e.getKeyCode();
@@ -229,6 +239,18 @@ public class Player implements KeyListener {
                     isGameOver = true;
                 }
                 return;
+            }
+            if (enemy instanceof Skeleton) {
+                Skeleton skeleton = (Skeleton) enemy;
+                List<Point> trapLocations = skeleton.getTrapLocations();
+                for (Point trapLocation : trapLocations) {
+                    Rectangle trapRect = new Rectangle(trapLocation.x, trapLocation.y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
+                    if (playerRect.intersects(trapRect)) {
+                        trapLocations.remove(trapLocation);
+                        isStunned = true;
+                        return;
+                    }
+                }
             }
         }
     }

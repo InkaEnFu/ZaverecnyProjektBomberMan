@@ -3,12 +3,18 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
+import javax.swing.Timer;
 
 public class Skeleton implements Enemy {
     private int x;
     private int y;
-    private BufferedImage image;
+    private BufferedImage skeletonImage;
+    private BufferedImage trapImage;
+    private List<Point> trapLocations;
+    private Timer abilityTimer;
     private Random random;
     private GameBoard gameBoard;
 
@@ -16,18 +22,34 @@ public class Skeleton implements Enemy {
         this.x = x;
         this.y = y;
         this.random = new Random();
+        this.trapLocations = new ArrayList<>();
         this.gameBoard = gameBoard;
         try {
-            image = ImageIO.read(new File("src/Skeleton.png"));
+            skeletonImage = ImageIO.read(new File("src/Skeleton.png"));
+            trapImage = ImageIO.read(new File("src/Trap.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        abilityTimer = new javax.swing.Timer(5000, e -> ability());
+        abilityTimer.start();
     }
 
     @Override
     public void draw(Graphics g, int x, int y, int tileSize) {
-        g.drawImage(image, x, y, tileSize, tileSize, null);
+        if (skeletonImage != null){
+            g.drawImage(skeletonImage, x, y, tileSize, tileSize, null);
     }
+    if(trapImage !=null)
+
+    {
+        for (Point trapLocation : trapLocations) {
+            g.drawImage(trapImage, trapLocation.x, trapLocation.y, tileSize, tileSize, null);
+        }
+    }
+}
+
+
+
 
     @Override
     public int getX() {
@@ -73,7 +95,16 @@ public class Skeleton implements Enemy {
 
     @Override
     public void ability() {
-
+        placeTrap();
+    }
+    private void placeTrap(){
+        int tileSize = GameBoard.TILE_SIZE;
+        Point trapLocation = new Point(x, y);
+        trapLocations.add(trapLocation);
+        gameBoard.repaint();
+    }
+    public List<Point> getTrapLocations(){
+        return trapLocations;
     }
 
 }
