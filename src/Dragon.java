@@ -28,8 +28,8 @@ public class Dragon implements Enemy {
         this.gameBoard = gameBoard;
         this.fireBallLocations = new ArrayList<>();
         try {
-            dragonImage = ImageIO.read(new File("src/Dragon.png"));
-            fireBallImage = ImageIO.read(new File("src/FireBall.png"));
+            dragonImage = ImageIO.read(new File("src/Images/Dragon.png"));
+            fireBallImage = ImageIO.read(new File("src/Images/FireBall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

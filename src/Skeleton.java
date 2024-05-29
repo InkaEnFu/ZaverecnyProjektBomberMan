@@ -25,8 +25,8 @@ public class Skeleton implements Enemy {
         this.trapLocations = new ArrayList<>();
         this.gameBoard = gameBoard;
         try {
-            skeletonImage = ImageIO.read(new File("src/Skeleton.png"));
-            trapImage = ImageIO.read(new File("src/Trap.png"));
+            skeletonImage = ImageIO.read(new File("src/Images/Skeleton.png"));
+            trapImage = ImageIO.read(new File("src/Images/Trap.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

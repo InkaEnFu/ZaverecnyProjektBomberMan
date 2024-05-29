@@ -28,6 +28,8 @@ public class GameBoard extends JPanel {
     private int currentLevel = 1;
     private boolean gameWon = false;
     private boolean levelCleared = false;
+    public boolean boostSpawned = false;
+
 
 
     public GameBoard() {
@@ -37,8 +39,8 @@ public class GameBoard extends JPanel {
         fireLocations = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
-            playerImage = ImageIO.read(new File("src/Player.png"));
-            boostImage = ImageIO.read(new File("src/Boost.png"));
+            playerImage = ImageIO.read(new File("src/Images/Player.png"));
+            boostImage = ImageIO.read(new File("src/Images/Boost.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -255,5 +257,3 @@ public class GameBoard extends JPanel {
         return bomb.getX() == x && bomb.getY() == y;
     }
 }
-
-

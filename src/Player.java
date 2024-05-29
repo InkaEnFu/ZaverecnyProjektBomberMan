@@ -11,7 +11,7 @@ import java.util.List;
 public class Player implements KeyListener {
     private int x;
     private int y;
-    private int speed;
+    private int speed = 130;
     private GameBoard gameBoard;
     private int deltaX = 0;
     private int deltaY = 0;
@@ -31,13 +31,12 @@ public class Player implements KeyListener {
         this.gameBoard = gameBoard;
         x = (gameBoard.COLUMN_COUNT / 2) * gameBoard.TILE_SIZE;
         y = (gameBoard.ROW_COUNT / 2) * gameBoard.TILE_SIZE;
-        speed = gameBoard.TILE_SIZE;
         gameBoard.addKeyListener(this);
 
         try {
-            playerImage = ImageIO.read(new File("src/Player.png"));
-            bombImage = ImageIO.read(new File("src/Bomb.png"));
-            fireImage = ImageIO.read(new File("src/Fire.png"));
+            playerImage = ImageIO.read(new File("src/Images/Player.png"));
+            bombImage = ImageIO.read(new File("src/Images/Bomb.png"));
+            fireImage = ImageIO.read(new File("src/Images/Fire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,6 +103,7 @@ public class Player implements KeyListener {
                     x = novaX;
                     y = novaY;
                     gameBoard.getMap().getScene()[y / gameBoard.TILE_SIZE][x / gameBoard.TILE_SIZE] = 0;
+                    speed = 100;
                     gameBoard.repaint();
                 }
 

@@ -5,17 +5,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Bomb {
     private BufferedImage bombImage;
     private GameBoard gameBoard;
     private int x;
     private int y;
+    Random random = new Random();
 
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         try {
-            bombImage = ImageIO.read(new File("src/Bomb.png"));
+            bombImage = ImageIO.read(new File("src/Images/Bomb.png"));
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -48,7 +50,11 @@ public class Bomb {
                     int newY = y + j;
                     if (newX >= 0 && newX < scene[0].length && newY >= 0 && newY < scene.length) {
                         if (scene[newY][newX] == 2) {
-                            scene[newY][newX] = 4;
+                            scene[newY][newX] = 0;
+                            if (!gameBoard.boostSpawned && random.nextFloat() < 0.2) {
+                                scene[newY][newX] = 4;
+                                gameBoard.boostSpawned = true;
+                            }
                         }
                         fireLocations.add(new Point(newX * gameBoard.TILE_SIZE, newY * gameBoard.TILE_SIZE));
                         gameBoard.checkAndRemoveEnemy(newX, newY);
