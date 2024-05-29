@@ -13,19 +13,18 @@ public class GameBoard extends JPanel {
     public static final int ROW_COUNT = 15;
     public static final int COLUMN_COUNT = 17;
     public static final int TILE_SIZE = 49;
-
     private Player player;
     private Map map;
     private Bomb bomb;
     private BufferedImage playerImage;
     private BufferedImage boostImage;
-
     private List<Enemy> enemies;
-
     private List<Point> fireLocations;
-
     public JFrame mainFrame;
     private List<Enemy> newEnemies = new ArrayList<>();
+    private JLabel timerLabel;
+    private Timer gameTimer;
+    private int gameTimeInSeconds;
 
 
     public GameBoard() {
@@ -40,6 +39,17 @@ public class GameBoard extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        timerLabel = new JLabel("Timer: 0 ");
+        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        timerLabel.setFont(new Font("Default", Font.BOLD, 28));
+        timerLabel.setForeground(Color.WHITE);
+        add(timerLabel, BorderLayout.NORTH);
+        gameTimeInSeconds = 0;
+        gameTimer = new Timer(1000, e -> {
+            gameTimeInSeconds++;
+            updateTimerLabel();
+        });
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -56,9 +66,9 @@ public class GameBoard extends JPanel {
                 Color barva;
 
                 if (policko == 1) {
-                    barva = TileColour.GRAY.getColour();
-                } else if (policko == 2) {
                     barva = Color.BLACK;
+                } else if (policko == 2) {
+                    barva = TileColour.GRAY.getColour();
                 } else if (policko == 3) {
                     barva = TileColour.BROWN.getColour();
                 } else if (policko == 4) {
@@ -135,12 +145,17 @@ public class GameBoard extends JPanel {
         player = new Player(this);
         addKeyListener(player);
         setFocusable(true);
+        gameTimer.start();
         new Thread(() -> {
             while (true) {
                 for (Enemy enemy : enemies) {
                     enemy.movement();
                 }
                 checkFireCollisionWithEnemy();
+                if(enemies.isEmpty()){
+                    gameWon();
+                    break;
+                }
                 repaint();
                 try {
                     Thread.sleep(500);
@@ -159,6 +174,12 @@ public class GameBoard extends JPanel {
     }
     public List<Point> getFireLocations() {
         return fireLocations;
+    }
+    private void gameWon() {
+        SwingUtilities.invokeLater(() -> new GameWonFrame(this, mainFrame));
+    }
+    private void updateTimerLabel() {
+        SwingUtilities.invokeLater(() -> timerLabel.setText("Timer: " + gameTimeInSeconds));
     }
 
     public void checkAndRemoveEnemy(int x, int y) {

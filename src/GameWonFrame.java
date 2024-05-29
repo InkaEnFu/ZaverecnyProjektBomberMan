@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameOverFrame extends JFrame {
+public class GameWonFrame extends JFrame {
     private GameBoard gameBoard;
     private JFrame previousFrame;
 
-    public GameOverFrame(GameBoard gameBoard, JFrame previousFrame) {
+    public GameWonFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
         this.previousFrame = previousFrame;
-        setTitle("Game Over");
+        setTitle("Game Won");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setResizable(false);
@@ -19,9 +19,9 @@ public class GameOverFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
 
-        JLabel bannerLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
+        JLabel bannerLabel = new JLabel("GAME WON", SwingConstants.CENTER);
         bannerLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        bannerLabel.setForeground(Color.RED);
+        bannerLabel.setForeground(Color.GREEN);
         panel.add(bannerLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
