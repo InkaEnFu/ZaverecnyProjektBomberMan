@@ -25,6 +25,9 @@ public class GameBoard extends JPanel {
     private JLabel timerLabel;
     private Timer gameTimer;
     private int gameTimeInSeconds;
+    private int currentLevel = 1;
+    private boolean gameWon = false;
+    private boolean levelCleared = false;
 
 
     public GameBoard() {
@@ -92,8 +95,8 @@ public class GameBoard extends JPanel {
         }
     }
     public void spawnEnemies() {
+        enemies.clear();
         Random random = new Random();
-
         List<Point> freeTiles = new ArrayList<>();
         for (int row = 0; row < ROW_COUNT; row++) {
             for (int col = 0; col < COLUMN_COUNT; col++) {
@@ -102,25 +105,40 @@ public class GameBoard extends JPanel {
                 }
             }
         }
-        for (int i = 0; i < 3; i++) {
+        int slimesCount = 1;
+        int skeletonsCount = 0;
+        int dragonsCount = 0;
+        if (currentLevel == 2) {
+            slimesCount = 2;
+            skeletonsCount = 1;
+        } else if (currentLevel == 3) {
+            slimesCount = 2;
+            skeletonsCount = 2;
+            dragonsCount = 1;
+        }
+
+        spawnSpecificEnemies(slimesCount, Slime.class, freeTiles, random, true);
+        spawnSpecificEnemies(skeletonsCount, Skeleton.class, freeTiles, random, false);
+        spawnSpecificEnemies(dragonsCount, Dragon.class, freeTiles, random, false);
+    }
+
+    private void spawnSpecificEnemies(int count, Class<? extends Enemy> enemyClass, List<Point> freeTiles, Random random, boolean original) {
+        for (int i = 0; i < count; i++) {
             if (freeTiles.isEmpty()) {
                 break;
             }
             Point spawnPoint = freeTiles.remove(random.nextInt(freeTiles.size()));
-            Enemy enemy;
-            switch (i) {
-                case 0:
-                    enemy = new Skeleton(spawnPoint.x, spawnPoint.y, this);
-                    break;
-                case 1:
-                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this, true);
-                    break;
-                default:
-                    enemy = new Dragon(spawnPoint.x, spawnPoint.y, this);
-                    break;
+            try {
+                Enemy enemy;
+                if (enemyClass == Slime.class) {
+                    enemy = new Slime(spawnPoint.x, spawnPoint.y, this, original);
+                } else {
+                    enemy = enemyClass.getConstructor(int.class, int.class, GameBoard.class).newInstance(spawnPoint.x, spawnPoint.y, this);
+                }
+                enemies.add(enemy);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            enemies.add(enemy);
         }
     }
 
@@ -152,9 +170,9 @@ public class GameBoard extends JPanel {
                     enemy.movement();
                 }
                 checkFireCollisionWithEnemy();
-                if(enemies.isEmpty()){
-                    gameWon();
-                    break;
+                if(enemies.isEmpty()&& !levelCleared){
+                    levelCleared = true;
+                    showNextLevelFrame();
                 }
                 repaint();
                 try {
@@ -164,6 +182,17 @@ public class GameBoard extends JPanel {
                 }
             }
         }).start();
+    }
+
+    public void nextLevel() {
+        if (currentLevel < 3) {
+            currentLevel++;
+            spawnEnemies();
+            levelCleared = false;
+        } else if (!gameWon) {
+            gameWon = true;
+            gameWon();
+        }
     }
 
     public Map getMap() {
@@ -177,6 +206,9 @@ public class GameBoard extends JPanel {
     }
     private void gameWon() {
         SwingUtilities.invokeLater(() -> new GameWonFrame(this, mainFrame));
+    }
+    private void showNextLevelFrame() {
+        SwingUtilities.invokeLater(() -> new NextLevelFrame(this, mainFrame));
     }
     private void updateTimerLabel() {
         SwingUtilities.invokeLater(() -> timerLabel.setText("Timer: " + gameTimeInSeconds));
