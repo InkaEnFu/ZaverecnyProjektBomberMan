@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import javax.swing.Timer;
 
@@ -20,7 +21,6 @@ public class Dragon implements Enemy {
     private List<Point> fireBallLocations;
 
 
-
     public Dragon(int x, int y, GameBoard gameBoard) {
         this.x = x;
         this.y = y;
@@ -28,8 +28,8 @@ public class Dragon implements Enemy {
         this.gameBoard = gameBoard;
         this.fireBallLocations = new ArrayList<>();
         try {
-            dragonImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Dragon.png"));
-            fireBallImage = ImageIO.read(getClass().getResourceAsStream("src/Images/FireBall.png"));
+            dragonImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Dragon.png")));
+            fireBallImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/FireBall.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

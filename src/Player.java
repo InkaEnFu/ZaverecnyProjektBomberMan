@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Player implements KeyListener {
     private int x;
@@ -34,9 +35,9 @@ public class Player implements KeyListener {
         gameBoard.addKeyListener(this);
 
         try {
-            playerImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Player.png"));
-            bombImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Bomb.png"));
-            fireImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Fire.png"));
+            playerImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Player.png")));
+            bombImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Bomb.png")));
+            fireImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Fire.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

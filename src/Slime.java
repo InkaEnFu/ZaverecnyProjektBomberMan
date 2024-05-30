@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Slime implements Enemy {
@@ -25,7 +26,7 @@ public class Slime implements Enemy {
         this.hasSplit = false;
         this.original = original;
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("src/Images/Slime.png"));
+            image =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Slime.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

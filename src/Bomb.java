@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Bomb {
@@ -17,7 +18,7 @@ public class Bomb {
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         try {
-            bombImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Bomb.png"));
+            bombImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Bomb.png/")));
         } catch (IOException e) {
             e.printStackTrace();
 

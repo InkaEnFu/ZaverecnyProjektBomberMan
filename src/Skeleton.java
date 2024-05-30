@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.List;
 import javax.swing.Timer;
@@ -25,8 +26,8 @@ public class Skeleton implements Enemy {
         this.trapLocations = new ArrayList<>();
         this.gameBoard = gameBoard;
         try {
-            skeletonImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Skeleton.png"));
-            trapImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Trap.png"));
+            skeletonImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Skeleton.png")));
+            trapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Trap.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

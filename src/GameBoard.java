@@ -1,13 +1,12 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class GameBoard extends JPanel {
     public static final int ROW_COUNT = 15;
@@ -39,8 +38,8 @@ public class GameBoard extends JPanel {
         fireLocations = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
-            playerImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Player.png"));
-            boostImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Boost.png"));
+            playerImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Player.png")));
+            boostImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Boost.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
