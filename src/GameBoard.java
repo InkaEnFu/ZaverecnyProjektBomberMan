@@ -33,7 +33,7 @@ public class GameBoard extends JPanel {
 
 
     public GameBoard() {
-        map = new Map();
+        map = new Map(currentLevel);
         bomb = new Bomb(this);
         enemies = new ArrayList<>();
         fireLocations = new ArrayList<>();
@@ -189,7 +189,7 @@ public class GameBoard extends JPanel {
     public void nextLevel() {
         if (currentLevel < 3) {
             currentLevel++;
-            map = new Map();
+            map = new Map(currentLevel);
             spawnEnemies();
             levelCleared = false;
         } else if (!gameWon) {
@@ -208,7 +208,9 @@ public class GameBoard extends JPanel {
         SwingUtilities.invokeLater(() -> new GameWonFrame(this, mainFrame));
     }
     private void showNextLevelFrame() {
-        SwingUtilities.invokeLater(() -> new NextLevelFrame(this, mainFrame));
+        if (!player.isGameOver) {
+            SwingUtilities.invokeLater(() -> new NextLevelFrame(this, mainFrame));
+        }
     }
     private void updateTimerLabel() {
         SwingUtilities.invokeLater(() -> timerLabel.setText("Timer: " + gameTimeInSeconds));
@@ -262,7 +264,7 @@ public class GameBoard extends JPanel {
         player = null;
         enemies.clear();
         fireLocations.clear();
-        map = new Map();
+        map = new Map(currentLevel);
         bomb = new Bomb(this);
         player = new Player(this);
         gameTimer.stop();

@@ -23,7 +23,7 @@ public class Player implements KeyListener {
     private int bombY = -1;
     private boolean showFire = false;
     private List<Point> fireLocation = new ArrayList<>();
-    private boolean isGameOver = false;
+    public boolean isGameOver = false;
     private boolean playerWasOnFire = false;
     private boolean isStunned = false;
 
