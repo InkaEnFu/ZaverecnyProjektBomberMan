@@ -34,9 +34,9 @@ public class Player implements KeyListener {
         gameBoard.addKeyListener(this);
 
         try {
-            playerImage = ImageIO.read(new File("src/Images/Player.png"));
-            bombImage = ImageIO.read(new File("src/Images/Bomb.png"));
-            fireImage = ImageIO.read(new File("src/Images/Fire.png"));
+            playerImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Player.png"));
+            bombImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Bomb.png"));
+            fireImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Fire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

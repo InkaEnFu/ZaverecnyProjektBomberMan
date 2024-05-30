@@ -17,7 +17,7 @@ public class Bomb {
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         try {
-            bombImage = ImageIO.read(new File("src/Images/Bomb.png"));
+            bombImage = ImageIO.read(getClass().getResourceAsStream("src/Images/Bomb.png"));
         } catch (IOException e) {
             e.printStackTrace();
 

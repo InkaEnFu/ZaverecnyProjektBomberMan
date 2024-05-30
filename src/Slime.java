@@ -25,7 +25,7 @@ public class Slime implements Enemy {
         this.hasSplit = false;
         this.original = original;
         try {
-            image = ImageIO.read(new File("src/Images/Slime.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("src/Images/Slime.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
