@@ -27,7 +27,7 @@ public class GameBoard extends JPanel {
     private int gameTimeInSeconds;
     private int currentLevel = 1;
     private boolean gameWon = false;
-    private boolean levelCleared = false;
+    public boolean levelCleared = false;
     public boolean boostSpawned = false;
 
 
@@ -67,16 +67,16 @@ public class GameBoard extends JPanel {
                 int x = col * TILE_SIZE;
                 int y = row * TILE_SIZE;
 
-                int policko = map.getTile(col, row);
+                int tile = map.getTile(col, row);
                 Color barva;
 
-                if (policko == 1) {
+                if (tile == 1) {
                     barva = Color.BLACK;
-                } else if (policko == 2) {
+                } else if (tile == 2) {
                     barva = TileColour.GRAY.getColour();
-                } else if (policko == 3) {
+                } else if (tile == 3) {
                     barva = TileColour.BROWN.getColour();
-                } else if (policko == 4) {
+                } else if (tile == 4) {
                     g.drawImage(boostImage, x, y, TILE_SIZE, TILE_SIZE, null);
                     continue;
                 } else {
@@ -107,12 +107,12 @@ public class GameBoard extends JPanel {
                 }
             }
         }
-        int slimesCount = 1;
-        int skeletonsCount = 0;
+        int slimesCount = 0;
+        int skeletonsCount = 1;
         int dragonsCount = 0;
         if (currentLevel == 2) {
-            slimesCount = 2;
-            skeletonsCount = 1;
+            slimesCount = 1;
+            skeletonsCount = 2;
         } else if (currentLevel == 3) {
             slimesCount = 2;
             skeletonsCount = 2;
@@ -189,6 +189,7 @@ public class GameBoard extends JPanel {
     public void nextLevel() {
         if (currentLevel < 3) {
             currentLevel++;
+            map = new Map();
             spawnEnemies();
             levelCleared = false;
         } else if (!gameWon) {
@@ -202,9 +203,6 @@ public class GameBoard extends JPanel {
     }
     public Bomb getBomb(){
         return bomb;
-    }
-    public List<Point> getFireLocations() {
-        return fireLocations;
     }
     private void gameWon() {
         SwingUtilities.invokeLater(() -> new GameWonFrame(this, mainFrame));
@@ -255,5 +253,25 @@ public class GameBoard extends JPanel {
     public boolean isBombAt(int x, int y) {
         Bomb bomb = getBomb();
         return bomb.getX() == x && bomb.getY() == y;
+    }
+    public void setPlayerToCenter() {
+        player.setX((COLUMN_COUNT / 2) *( TILE_SIZE));
+        player.setY((ROW_COUNT / 2) *( TILE_SIZE));
+    }
+    public void restartCurrentLevel() {
+        player = null;
+        enemies.clear();
+        fireLocations.clear();
+        map = new Map();
+        bomb = new Bomb(this);
+        player = new Player(this);
+        gameTimer.stop();
+        gameTimeInSeconds = 0;
+        gameTimer.start();
+        spawnEnemies();
+        levelCleared = false;
+        gameWon = false;
+        boostSpawned = false;
+        repaint();
     }
 }

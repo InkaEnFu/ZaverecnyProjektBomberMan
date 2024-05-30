@@ -40,6 +40,7 @@ public class NextLevelFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 gameBoard.nextLevel();
+                gameBoard.setPlayerToCenter();
             }
         });
 

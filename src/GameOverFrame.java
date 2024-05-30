@@ -40,7 +40,8 @@ public class GameOverFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 previousFrame.dispose();
-                GameBoard.doGui();
+                gameBoard.restartCurrentLevel();
+                gameBoard.mainFrame.setVisible(true);
             }
         });
 

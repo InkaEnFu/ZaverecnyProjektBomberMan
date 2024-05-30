@@ -87,28 +87,28 @@ public class Player implements KeyListener {
                 }
                 isStunned = false;
             } else {
-                int novaX = x + (deltaX != 0 ? (deltaX / Math.abs(deltaX)) * gameBoard.TILE_SIZE : 0);
-                int novaY = y + (deltaY != 0 ? (deltaY / Math.abs(deltaY)) * gameBoard.TILE_SIZE : 0);
+                int newX = x + (deltaX != 0 ? (deltaX / Math.abs(deltaX)) * gameBoard.TILE_SIZE : 0);
+                int newY = y + (deltaY != 0 ? (deltaY / Math.abs(deltaY)) * gameBoard.TILE_SIZE : 0);
 
-                if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
-                        novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
-                        gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 0) {
-                    x = novaX;
-                    y = novaY;
+                if (newX >= 0 && newX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        newY >= 0 && newY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        gameBoard.getMap().getTile(newX / gameBoard.TILE_SIZE, newY / gameBoard.TILE_SIZE) == 0) {
+                    x = newX;
+                    y = newY;
                     gameBoard.repaint();
-                } else if (novaX >= 0 && novaX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
-                        novaY >= 0 && novaY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
-                        gameBoard.getMap().getTile(novaX / gameBoard.TILE_SIZE, novaY / gameBoard.TILE_SIZE) == 4) {
+                } else if (newX >= 0 && newX <= (gameBoard.COLUMN_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        newY >= 0 && newY <= (gameBoard.ROW_COUNT - 1) * gameBoard.TILE_SIZE &&
+                        gameBoard.getMap().getTile(newX / gameBoard.TILE_SIZE, newY / gameBoard.TILE_SIZE) == 4) {
 
-                    x = novaX;
-                    y = novaY;
+                    x = newX;
+                    y = newY;
                     gameBoard.getMap().getScene()[y / gameBoard.TILE_SIZE][x / gameBoard.TILE_SIZE] = 0;
                     speed = 100;
                     gameBoard.repaint();
                 }
 
                 try {
-                    Thread.sleep(130);
+                    Thread.sleep(speed);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -123,7 +123,7 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (isGameOver || isStunned) {
+        if (isGameOver || isStunned|| gameBoard.levelCleared ) {
             return;
         }
         int key = e.getKeyCode();
@@ -276,6 +276,13 @@ public class Player implements KeyListener {
         }
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }
 
 
