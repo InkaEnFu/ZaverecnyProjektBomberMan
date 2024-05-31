@@ -1,8 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import java.util.Random;
 public class Slime implements Enemy {
     private int x;
     private int y;
-    private BufferedImage image;
+    private BufferedImage slimeImage;
     private Random random;
     private GameBoard gameBoard;
     private boolean hasSplit;
@@ -37,7 +37,8 @@ public class Slime implements Enemy {
         this.hasSplit = false;
         this.original = original;
         try {
-            image =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Slime.png")));
+            URL slimeImages = this.getClass().getResource("/Images/Slime.png");
+            slimeImage = ImageIO.read(Objects.requireNonNull(slimeImages));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +53,7 @@ public class Slime implements Enemy {
      */
     @Override
     public void draw(Graphics g, int x, int y, int tileSize) {
-        g.drawImage(image, x, y, tileSize, tileSize, null);
+        g.drawImage(slimeImage, x, y, tileSize, tileSize, null);
     }
 
     /**

@@ -17,7 +17,7 @@ public class Frame extends JFrame {
      */
     public Frame(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
-        setTitle("BombreMan");
+        setTitle("BomberMan");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
         setResizable(false);

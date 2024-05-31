@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -44,8 +45,10 @@ public class GameBoard extends JPanel {
         fireLocations = new ArrayList<>();
         setPreferredSize(new Dimension(COLUMN_COUNT * TILE_SIZE, ROW_COUNT * TILE_SIZE));
         try {
-            playerImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Player.png")));
-            boostImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Boost.png")));
+            URL playerImages = this.getClass().getResource("/Images/Player.png");
+            playerImage = ImageIO.read(Objects.requireNonNull(playerImages));
+            URL boostImages = this.getClass().getResource("/Images/Boost.png");
+            boostImage = ImageIO.read(Objects.requireNonNull(boostImages));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +125,7 @@ public class GameBoard extends JPanel {
                 }
             }
         }
-        int slimesCount = 0;
+        int slimesCount = 0 ;
         int skeletonsCount = 1;
         int dragonsCount = 0;
         if (currentLevel == 2) {

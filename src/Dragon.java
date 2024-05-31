@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,8 +37,10 @@ public class Dragon implements Enemy {
         this.gameBoard = gameBoard;
         this.fireBallLocations = new ArrayList<>();
         try {
-            dragonImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Dragon.png")));
-            fireBallImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/FireBall.png")));
+            URL dragonImages =  this.getClass().getResource("/Images/Dragon.png");
+            dragonImage = ImageIO.read(Objects.requireNonNull(dragonImages));
+            URL fireBallImages = this.getClass().getResource("/Images/FireBall.png");
+            fireBallImage = ImageIO.read(Objects.requireNonNull(fireBallImages));
         } catch (IOException e) {
             e.printStackTrace();
         }

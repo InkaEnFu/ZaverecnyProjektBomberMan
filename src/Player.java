@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,14 +43,17 @@ public class Player implements KeyListener {
         gameBoard.addKeyListener(this);
 
         try {
-            playerImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Player.png")));
-            bombImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Bomb.png")));
-            fireImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Fire.png")));
+            URL playerImages = this.getClass().getResource("/Images/Player.png");
+            playerImage = ImageIO.read(Objects.requireNonNull(playerImages));
+            URL bombImages = this.getClass().getResource("/Images/Bomb.png");
+            bombImage = ImageIO.read(Objects.requireNonNull(bombImages));
+            URL fireImages = this.getClass().getResource("/Images/Fire.png");
+            fireImage = ImageIO.read(Objects.requireNonNull(fireImages));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Thread thread = new Thread(this::movement);
+        Thread thread = new Thread(this::playerMovement);
         thread.start();
         new Thread(() -> {
             while (true) {
@@ -73,11 +77,11 @@ public class Player implements KeyListener {
         if (playerImage != null) {
             g.drawImage(playerImage, x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE, null);
         }
-            if (showBomb && bombImage != null) {
-                if (bombX != -1 && bombY != -1) {
-                    g.drawImage(bombImage, bombX - bombImage.getWidth() / 2, bombY - bombImage.getHeight() / 2, null);
-                }
+        if (showBomb && bombImage != null) {
+            if (bombX != -1 && bombY != -1) {
+                g.drawImage(bombImage, bombX - bombImage.getWidth() / 2, bombY - bombImage.getHeight() / 2, null);
             }
+        }
         if (showFire && fireImage != null) {
             for (Point position : fireLocation) {
                 int indexX = position.x / gameBoard.TILE_SIZE;
@@ -87,8 +91,7 @@ public class Player implements KeyListener {
                 }
             }
         }
-        }
-
+    }
     /**
      * Handles the player's movement based on the current delta values.
      * The player will move in the direction of the delta values if the new position is within the game board bounds.
@@ -96,7 +99,7 @@ public class Player implements KeyListener {
      * When player pick up boost, the player will move faster.
      */
 
-    private void movement() {
+    private void playerMovement() {
         while (true) {
             if (isStunned) {
                 try {

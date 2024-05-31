@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -36,8 +37,10 @@ public class Skeleton implements Enemy {
         this.trapLocations = new ArrayList<>();
         this.gameBoard = gameBoard;
         try {
-            skeletonImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Skeleton.png")));
-            trapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Trap.png")));
+            URL skeletonImages = this.getClass().getResource("/Images/Skeleton.png");
+            skeletonImage = ImageIO.read(Objects.requireNonNull(skeletonImages));
+            URL trapImages = this.getClass().getResource("/Images/Trap.png");
+            trapImage = ImageIO.read(Objects.requireNonNull(trapImages));
         } catch (IOException e) {
             e.printStackTrace();
         }

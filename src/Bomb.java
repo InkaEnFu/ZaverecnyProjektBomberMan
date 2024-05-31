@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,8 @@ public class Bomb {
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         try {
-            bombImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Bomb.png/")));
+            URL bombImages = this.getClass().getResource("/Images/Bomb.png/");
+            bombImage = ImageIO.read(Objects.requireNonNull(bombImages));
         } catch (IOException e) {
             e.printStackTrace();
 
