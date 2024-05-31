@@ -3,10 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The GameOverFrame class represents a frame displayed when the game is over.
+ * It provides options for the player to play again, return to the menu, or exit the game.
+ */
 public class GameOverFrame extends JFrame {
     private GameBoard gameBoard;
     private JFrame previousFrame;
 
+    /**
+     * Constructor for a GameOverFrame.
+     * @param gameBoard     the game board associated with the game
+     * @param previousFrame the previous frame to be disposed when this frame is displayed
+     */
     public GameOverFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
         this.previousFrame = previousFrame;
@@ -35,6 +44,12 @@ public class GameOverFrame extends JFrame {
         menuButton.setFont(new Font("Arial", Font.BOLD, 24));
         exitButton.setFont(new Font("Arial", Font.BOLD, 24));
 
+        /**
+         * ActionListener for the playAgainButton.
+         * Disposes the current frame and the previous frame, restarts the current level on the game board,
+         * and makes the main frame of the game board visible.
+         * @param e The action event
+         */
         playAgainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +60,11 @@ public class GameOverFrame extends JFrame {
             }
         });
 
+        /**
+         * ActionListener for the menuButton.
+         * Disposes the current frame and the previous frame, and creates a new Frame using the game board.
+         * @param e The action event
+         */
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +74,11 @@ public class GameOverFrame extends JFrame {
             }
         });
 
+        /**
+         * ActionListener for the exitButton.
+         * Exits the game.
+         * @param e The action event
+         */
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

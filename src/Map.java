@@ -1,6 +1,15 @@
+/**
+ * The Map class represents a game map with different levels.
+ * Each level has a predefined 2D array representing the scene.
+ */
 public class Map {
     private int[][] scene;
 
+    /**
+     * Constructs a new Map for the specified level.
+     * @param level                     The level of the map to be loaded
+     * @throws IllegalArgumentException If the specified level is invalid
+     */
     public Map(int level) {
         switch (level) {
             case 1:
@@ -65,10 +74,19 @@ public class Map {
         }
     }
 
+    /**
+     * Returns the tile value at the specified coordinates.
+     * @param x The x-coordinate of the tile.
+     * @param y The y-coordinate of the tile.
+     * @return  The value of the tile at the specified coordinates.
+     */
     public int getTile(int x, int y) {
         return this.scene[y][x];
     }
 
+    /**
+     * Returns the entire scene as a 2D array.
+     */
     public int[][] getScene() {
         return this.scene;
     }

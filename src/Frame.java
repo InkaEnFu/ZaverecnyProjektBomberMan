@@ -5,8 +5,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The Frame class represents the main window of the game.
+ * It provides a user interface with buttons to start the game, view controls, and read the story.
+ */
 public class Frame extends JFrame {
     private GameBoard gameBoard;
+    /**
+     * Constructor for the Frame class with the specified game board.
+     * @param gameBoard the game board associated with this frame
+     */
     public Frame(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         setTitle("BombreMan");
@@ -26,6 +34,10 @@ public class Frame extends JFrame {
         controlButton.setFont(new Font("Arial", Font.BOLD, 24));
         storyButton.setFont(new Font("Arial", Font.BOLD, 24));
 
+        /**
+         * This method is called when the play button is clicked. It disposes of the current frame.
+         * @param e The action event
+         */
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,6 +46,10 @@ public class Frame extends JFrame {
             }
         });
 
+        /**
+         * This method is called when the control button is clicked. It displays a message dialog with controls.
+         * @param e The action event
+         */
         controlButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -47,6 +63,10 @@ public class Frame extends JFrame {
             }
         });
 
+        /**
+         * This method is called when the story button is clicked. It displays a message dialog with the story of the game.
+         * @param e The action event
+         */
         storyButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){

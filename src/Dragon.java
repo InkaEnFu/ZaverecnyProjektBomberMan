@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +8,10 @@ import java.util.Objects;
 import java.util.Random;
 import javax.swing.Timer;
 
+/**
+ * This class represents a dragon enemy in the game. It handles
+ * drawing the dragon, its movement, and its special ability to shoot fireballs.
+ */
 public class Dragon implements Enemy {
     private int x;
     private int y;
@@ -20,7 +23,12 @@ public class Dragon implements Enemy {
     private Random random;
     private List<Point> fireBallLocations;
 
-
+    /**
+     * Constructor for the Dragon class with the specified position and game board.
+     * @param x         the x-coordinate of the dragon
+     * @param y         the y-coordinate of the dragon
+     * @param gameBoard the gameboard on which the dragon exists
+     */
     public Dragon(int x, int y, GameBoard gameBoard) {
         this.x = x;
         this.y = y;
@@ -37,6 +45,13 @@ public class Dragon implements Enemy {
         abilityTimer.start();
     }
 
+    /**
+     * Draws the dragon and its fireballs on the game board.
+     * @param g         the graphic object to draw on
+     * @param x         the x-coordinate for drawing
+     * @param y         the y-coordinate for drawing
+     * @param tileSize  the size of the tile to draw the dragon and fireballs
+     */
     @Override
     public void draw(Graphics g, int x, int y, int tileSize) {
         if (dragonImage != null){
@@ -56,16 +71,11 @@ public class Dragon implements Enemy {
         }
     }
 
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
+    /**
+     * Moves the dragon to a new position based on a random direction.
+     * The dragon will not move if the new position is out of bounds or is occupied by a bomb / tile with index 1;2;3;4;.
+     * The dragon will move to the new position only if it is occupied by a tile with index 0.
+     */
     @Override
     public void movement() {
         int moveDirection = random.nextInt(4);
@@ -98,15 +108,11 @@ public class Dragon implements Enemy {
         }
     }
 
-    @Override
-    public void ability() {
-        triggerFireBall();
-
-    }
-    public List<Point> getFireBallLocations() {
-        return fireBallLocations;
-    }
-
+    /**
+     * Triggers the dragon to show fireballs, updating the game board.
+     * The fireballs will be shown for 2 seconds before disappearing.
+     * The fireballs will be shown in the 4 cardinal directions around the dragon.
+     */
     private void triggerFireBall() {
         showFireBall = true;
         gameBoard.repaint();
@@ -117,6 +123,41 @@ public class Dragon implements Enemy {
 
         timer.setRepeats(false);
         timer.start();
+    }
+
+    /**
+     * Activates the dragon's special ability, which triggers fireballs.
+     */
+    @Override
+    public void ability() {
+        triggerFireBall();
+
+    }
+
+    /**
+     * Gets the list of fireball locations.
+     * @return a list of points representing fireball locations
+     */
+    public List<Point> getFireBallLocations() {
+        return fireBallLocations;
+    }
+
+    /**
+     * Gets the x-coordinate of the dragon.
+     * @return the x-coordinate of the dragon
+     */
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Gets the y-coordinate of the dragon.
+     * @return the y-coordinate of the dragon
+     */
+    @Override
+    public int getY() {
+        return y;
     }
 }
 

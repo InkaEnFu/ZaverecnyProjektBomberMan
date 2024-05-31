@@ -3,12 +3,15 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The Player class represents a player in the game.
+ * The player can move around the game board, place bombs, pick up boost and interact with other game elements.
+ */
 public class Player implements KeyListener {
     private int x;
     private int y;
@@ -28,6 +31,10 @@ public class Player implements KeyListener {
     private boolean playerWasOnFire = false;
     private boolean isStunned = false;
 
+    /**
+     * Constructor for Player object and initializes the player's position and images.
+     * @param gameBoard the game board on which the player moves
+     */
     public Player(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         x = (gameBoard.COLUMN_COUNT / 2) * gameBoard.TILE_SIZE;
@@ -58,6 +65,10 @@ public class Player implements KeyListener {
         }).start();
     }
 
+    /**
+     * Renders the player, bomb, and fire images on the game board.
+     * @param g the graphic object used for drawing
+     */
     public void print(Graphics g) {
         if (playerImage != null) {
             g.drawImage(playerImage, x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE, null);
@@ -77,6 +88,13 @@ public class Player implements KeyListener {
             }
         }
         }
+
+    /**
+     * Handles the player's movement based on the current delta values.
+     * The player will move in the direction of the delta values if the new position is within the game board bounds.
+     * The player will also move if the new position is not occupied by a wall or a bomb.
+     * When player pick up boost, the player will move faster.
+     */
 
     private void movement() {
         while (true) {
@@ -117,11 +135,21 @@ public class Player implements KeyListener {
         }
     }
 
-
+    /**
+     * Handles the key typed event.
+     * @param e the event to be processed
+     */
             @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Handles the key pressed event.
+     * @param e the event to be processed
+     * The player will move in the direction of the key pressed.
+     * The player will place a bomb if the space key is pressed, bomb will explode after seconds of placement.
+     * Fire will be shown after bomb explodes and will be removed after 2 seconds.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (isGameOver || isStunned|| gameBoard.levelCleared ) {
@@ -181,6 +209,10 @@ public class Player implements KeyListener {
         checkFireCollision();
     }
 
+    /**
+     * Invoked when a key has been released.
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if(isGameOver) {
@@ -198,6 +230,12 @@ public class Player implements KeyListener {
                 break;
         }
     }
+
+    /**
+     * Checks if the player has collided with fire.
+     * If the player collides with fire, the game is over.
+     * If the player collides with bomb, when it explodes, the game is over.
+     */
     private void checkFireCollision() {
         if (showFire) {
             Rectangle playerRect = new Rectangle(x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
@@ -230,6 +268,12 @@ public class Player implements KeyListener {
             playerWasOnFire = fireLocation.contains(new Point(x, y));
         }
     }
+
+    /**
+     * Checks if the player has collided with an enemy.
+     * If the player collides with an enemy, the game is over.
+     * If the player collides with a skeleton's trap, the player is stunned.
+     */
     private void checkEnemyCollision() {
         Rectangle playerRect = new Rectangle(x, y, gameBoard.TILE_SIZE, gameBoard.TILE_SIZE);
         for (Enemy enemy : gameBoard.getEnemies()) {
@@ -256,6 +300,10 @@ public class Player implements KeyListener {
         }
     }
 
+    /**
+     * Checks if the player has collided with a fireball.
+     * If the player collides with a fireball, the game is over.
+     */
     private void checkFireBallCollision() {
         for (Enemy enemy : gameBoard.getEnemies()) {
             if (enemy instanceof Dragon) {
@@ -277,10 +325,18 @@ public class Player implements KeyListener {
         }
     }
 
+    /**
+     * Gets the x-coordinate of the player.
+     * @return the x-coordinate of the player
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Gets the y-coordinate of the player.
+     * @return the y-coordinate of the player
+     */
     public void setY(int y) {
         this.y = y;
     }

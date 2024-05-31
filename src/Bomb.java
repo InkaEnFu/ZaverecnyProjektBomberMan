@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * This class represents a bomb in the game. It handles bomb placement,
+ * explosion logic, and updating the game state accordingly.
+ */
+
 public class Bomb {
     private BufferedImage bombImage;
     private GameBoard gameBoard;
@@ -15,6 +20,9 @@ public class Bomb {
     private int y;
     Random random = new Random();
 
+    /**
+     * Constructor for the Bomb class. It initializes the bomb image and the game board.
+     */
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         try {
@@ -24,24 +32,14 @@ public class Bomb {
 
         }
     }
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-
-    public BufferedImage getBombImage() {
-        return bombImage;
-    }
-
+    /**
+     * Causes the bomb to explode at the specified position, updating the game scene
+     * accordingly.
+     * The explosion will destroy tiles with index 2.
+     * @param x     the x-coordinate of the explosion
+     * @param y     the y-coordinate of the explosion
+     * @param scene the game scene represented as a 2D array
+     */
     public void explode(int x, int y, int[][] scene) {
         List<Point> fireLocations = new ArrayList<>();
         for (int i = -1; i <= 1; i++) {
@@ -73,5 +71,30 @@ public class Bomb {
                 e.printStackTrace();
             }
         }).start();
+    }
+    /**
+     * Sets the position of the bomb.
+     */
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Returns the x-coordinate of the bomb.
+     * @return The x-coordinate of the bomb
+     */
+
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Returns the y-coordinate of the bomb.
+     * @return The y-coordinate of the bomb
+     */
+
+    public int getY() {
+        return y;
     }
 }

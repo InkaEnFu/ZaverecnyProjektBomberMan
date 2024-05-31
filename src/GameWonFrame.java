@@ -3,10 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The GameWonFrame class represents a JFrame that is displayed when player wins the game.
+ * It provides options to play again, return to the menu, or exit the application.
+ */
 public class GameWonFrame extends JFrame {
     private GameBoard gameBoard;
     private JFrame previousFrame;
 
+    /**
+     * Constructor for a new GameWonFrame.
+     * @param gameBoard     The GameBoard instance of the current game
+     * @param previousFrame The previous JFrame that was displayed before this frame
+     */
     public GameWonFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
         this.previousFrame = previousFrame;
@@ -35,6 +44,12 @@ public class GameWonFrame extends JFrame {
         menuButton.setFont(new Font("Arial", Font.BOLD, 24));
         exitButton.setFont(new Font("Arial", Font.BOLD, 24));
 
+        /**
+         * Handles the action event for the Play Again button.
+         * Disposes the current and previous frames and restarts the game.
+         * @param e The action event
+         */
+
         playAgainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,6 +59,11 @@ public class GameWonFrame extends JFrame {
             }
         });
 
+        /**
+         * Handles the action event for the Menu button.
+         * Disposes the current and previous frames and returns to the menu.
+         * @param e The action event
+         */
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +73,11 @@ public class GameWonFrame extends JFrame {
             }
         });
 
+        /**
+         * Handles the action event for the Exit button.
+         * Exits the application.
+         * @param e The action event
+         */
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

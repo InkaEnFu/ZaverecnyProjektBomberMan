@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * An Enum representing different tile colors.
+ */
 enum TileColour {
     GREEN(Color.GREEN),
     GRAY(Color.GRAY),
@@ -7,10 +10,19 @@ enum TileColour {
 
     private final Color colour;
 
+    /**
+     * Constructor for a new TileColour with the specified color.
+     * @param colour the color of the tile
+     */
+
     TileColour(Color colour) {
         this.colour = colour;
     }
 
+    /**
+     * Gets the color of the tile.
+     * @return the color of the tile
+     */
     public Color getColour() {
         return colour;
     }
