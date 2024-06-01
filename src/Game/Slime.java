@@ -1,3 +1,5 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,8 +11,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * The Slime class represents a type of enemy in the game.
- * Slime enemies have random movement patterns and can split into smaller slimes.
+ * The Game.Slime class represents a type of enemy in the game.
+ * Game.Slime enemies have random movement patterns and can split into smaller slimes.
  */
 public class Slime implements Enemy {
     private int x;
@@ -23,7 +25,7 @@ public class Slime implements Enemy {
     private boolean original;
 
     /**
-     * Constructor for a new Slime object with the specified position and game board.
+     * Constructor for a new Game.Slime object with the specified position and game board.
      * @param x         The x-coordinate of the slime's initial position
      * @param y         The y-coordinate of the slime's initial position
      * @param gameBoard The game board where the slime exists

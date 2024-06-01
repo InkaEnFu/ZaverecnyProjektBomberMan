@@ -1,18 +1,18 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.awt.*;
 
 /**
- * The Frame class represents the main window of the game.
+ * The Game.Frame class represents the main window of the game.
  * It provides a user interface with buttons to start the game, view controls, and read the story.
  */
 public class Frame extends JFrame {
     private GameBoard gameBoard;
     /**
-     * Constructor for the Frame class with the specified game board.
+     * Constructor for the Game.Frame class with the specified game board.
      * @param gameBoard the game board associated with this frame
      */
     public Frame(GameBoard gameBoard) {

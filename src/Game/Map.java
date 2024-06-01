@@ -1,12 +1,14 @@
+package Game;
+
 /**
- * The Map class represents a game map with different levels.
+ * The Game.Map class represents a game map with different levels.
  * Each level has a predefined 2D array representing the scene.
  */
 public class Map {
     private int[][] scene;
 
     /**
-     * Constructs a new Map for the specified level.
+     * Constructs a new Game.Map for the specified level.
      * @param level                     The level of the map to be loaded
      * @throws IllegalArgumentException If the specified level is invalid
      */

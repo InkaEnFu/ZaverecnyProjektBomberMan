@@ -1,7 +1,8 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Bomb {
     Random random = new Random();
 
     /**
-     * Constructor for the Bomb class. It initializes the bomb image and the game board.
+     * Constructor for the Game.Bomb class. It initializes the bomb image and the game board.
      */
     public Bomb(GameBoard gameBoard) {
         this.gameBoard = gameBoard;

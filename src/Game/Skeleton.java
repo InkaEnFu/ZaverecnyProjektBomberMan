@@ -1,7 +1,8 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.List;
 import javax.swing.Timer;
 
 /**
- * The Skeleton class represents an enemy character in the game.
- * It implements the Enemy interface and provides functionality for movement, drawing, and special abilities.
+ * The Game.Skeleton class represents an enemy character in the game.
+ * It implements the Game.Enemy interface and provides functionality for movement, drawing, and special abilities.
  */
 public class Skeleton implements Enemy {
     private int x;
@@ -25,10 +26,10 @@ public class Skeleton implements Enemy {
     private GameBoard gameBoard;
 
     /**
-     * Constructs a Skeleton at the specified coordinates on the given game board.
-     * @param x         the initial x-coordinate of the Skeleton
-     * @param y         the initial y-coordinate of the Skeleton
-     * @param gameBoard the game board on which the Skeleton exists
+     * Constructs a Game.Skeleton at the specified coordinates on the given game board.
+     * @param x         the initial x-coordinate of the Game.Skeleton
+     * @param y         the initial y-coordinate of the Game.Skeleton
+     * @param gameBoard the game board on which the Game.Skeleton exists
      */
     public Skeleton(int x, int y, GameBoard gameBoard) {
         this.x = x;
@@ -49,10 +50,10 @@ public class Skeleton implements Enemy {
     }
 
     /**
-     * Draws the Skeleton and its traps on the game board.
+     * Draws the Game.Skeleton and its traps on the game board.
      * @param g         the Graphics object used for drawing
-     * @param x         the x-coordinate at which to draw the Skeleton
-     * @param y         the y-coordinate at which to draw the Skeleton
+     * @param x         the x-coordinate at which to draw the Game.Skeleton
+     * @param y         the y-coordinate at which to draw the Game.Skeleton
      * @param tileSize  the size of the tiles on the game board
      */
     @Override
@@ -106,14 +107,14 @@ public class Skeleton implements Enemy {
     }
 
     /**
-     * Triggers the Skeleton's special ability, which is to place a trap on the game board.
+     * Triggers the Game.Skeleton's special ability, which is to place a trap on the game board.
      */
     @Override
     public void ability() {
         placeTrap();
     }
     /**
-     * Places a trap on the game board at the Skeleton's current position.
+     * Places a trap on the game board at the Game.Skeleton's current position.
      */
     private void placeTrap(){
         int tileSize = GameBoard.TILE_SIZE;
@@ -122,7 +123,7 @@ public class Skeleton implements Enemy {
         gameBoard.repaint();
     }
     /**
-     * Returns the locations of the traps placed by the Skeleton.
+     * Returns the locations of the traps placed by the Game.Skeleton.
      * @return  the locations of the traps
      */
     public List<Point> getTrapLocations(){
@@ -131,8 +132,8 @@ public class Skeleton implements Enemy {
 
 
     /**
-     * Gets the x-coordinate of the Skeleton.
-     * @return the x-coordinate of the Skeleton
+     * Gets the x-coordinate of the Game.Skeleton.
+     * @return the x-coordinate of the Game.Skeleton
      */
     @Override
     public int getX() {
@@ -140,8 +141,8 @@ public class Skeleton implements Enemy {
     }
 
     /**
-     * Gets the y-coordinate of the Skeleton.
-     * @return the y-coordinate of the Skeleton
+     * Gets the y-coordinate of the Game.Skeleton.
+     * @return the y-coordinate of the Game.Skeleton
      */
     @Override
     public int getY() {

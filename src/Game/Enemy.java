@@ -1,7 +1,9 @@
+package Game;
+
 import java.awt.*;
 
 /**
- * The Enemy interface defines the methods that all enemy entities
+ * The Game.Enemy interface defines the methods that all enemy entities
  * in the game must implement. It includes methods for drawing the enemy,
  * handling movement, executing special abilities, and getting the enemy's position.
  */

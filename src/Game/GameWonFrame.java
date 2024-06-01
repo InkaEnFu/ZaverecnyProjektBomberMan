@@ -1,25 +1,27 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * The GameOverFrame class represents a frame displayed when the game is over.
- * It provides options for the player to play again, return to the menu, or exit the game.
+ * The Game.GameWonFrame class represents a JFrame that is displayed when player wins the game.
+ * It provides options to play again, return to the menu, or exit the application.
  */
-public class GameOverFrame extends JFrame {
+public class GameWonFrame extends JFrame {
     private GameBoard gameBoard;
     private JFrame previousFrame;
 
     /**
-     * Constructor for a GameOverFrame.
-     * @param gameBoard     the game board associated with the game
-     * @param previousFrame the previous frame to be disposed when this frame is displayed
+     * Constructor for a new Game.GameWonFrame.
+     * @param gameBoard     The Game.GameBoard instance of the current game
+     * @param previousFrame The previous JFrame that was displayed before this frame
      */
-    public GameOverFrame(GameBoard gameBoard, JFrame previousFrame) {
+    public GameWonFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
         this.previousFrame = previousFrame;
-        setTitle("Game Over");
+        setTitle("Game Won");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setResizable(false);
@@ -28,9 +30,9 @@ public class GameOverFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
 
-        JLabel bannerLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
+        JLabel bannerLabel = new JLabel("GAME WON", SwingConstants.CENTER);
         bannerLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        bannerLabel.setForeground(Color.RED);
+        bannerLabel.setForeground(Color.GREEN);
         panel.add(bannerLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
@@ -45,24 +47,23 @@ public class GameOverFrame extends JFrame {
         exitButton.setFont(new Font("Arial", Font.BOLD, 24));
 
         /**
-         * ActionListener for the playAgainButton.
-         * Disposes the current frame and the previous frame, restarts the current level on the game board,
-         * and makes the main frame of the game board visible.
+         * Handles the action event for the Play Again button.
+         * Disposes the current and previous frames and restarts the game.
          * @param e The action event
          */
+
         playAgainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 previousFrame.dispose();
-                gameBoard.restartCurrentLevel();
-                gameBoard.mainFrame.setVisible(true);
+                GameBoard.doGui();
             }
         });
 
         /**
-         * ActionListener for the menuButton.
-         * Disposes the current frame and the previous frame, and creates a new Frame using the game board.
+         * Handles the action event for the Menu button.
+         * Disposes the current and previous frames and returns to the menu.
          * @param e The action event
          */
         menuButton.addActionListener(new ActionListener() {
@@ -75,8 +76,8 @@ public class GameOverFrame extends JFrame {
         });
 
         /**
-         * ActionListener for the exitButton.
-         * Exits the game.
+         * Handles the action event for the Exit button.
+         * Exits the application.
          * @param e The action event
          */
         exitButton.addActionListener(new ActionListener() {

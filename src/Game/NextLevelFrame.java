@@ -1,25 +1,27 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * The GameWonFrame class represents a JFrame that is displayed when player wins the game.
- * It provides options to play again, return to the menu, or exit the application.
+ * The Game.NextLevelFrame class represents a frame that appears when a level is cleared in the game.
+ * It provides options to proceed to the next level, return to the menu, or exit the game.
  */
-public class GameWonFrame extends JFrame {
+public class NextLevelFrame extends JFrame {
     private GameBoard gameBoard;
     private JFrame previousFrame;
 
     /**
-     * Constructor for a new GameWonFrame.
-     * @param gameBoard     The GameBoard instance of the current game
-     * @param previousFrame The previous JFrame that was displayed before this frame
+     * Constructor for Game.NextLevelFrame with the specified game board and previous frame.
+     * @param gameBoard     the game board associated with the game
+     * @param previousFrame the previous frame from which this frame was invoked
      */
-    public GameWonFrame(GameBoard gameBoard, JFrame previousFrame) {
+    public NextLevelFrame(GameBoard gameBoard, JFrame previousFrame) {
         this.gameBoard = gameBoard;
         this.previousFrame = previousFrame;
-        setTitle("Game Won");
+        setTitle("Level Cleared");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setResizable(false);
@@ -28,41 +30,40 @@ public class GameWonFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
 
-        JLabel bannerLabel = new JLabel("GAME WON", SwingConstants.CENTER);
+        JLabel bannerLabel = new JLabel("LEVEL CLEARED", SwingConstants.CENTER);
         bannerLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        bannerLabel.setForeground(Color.GREEN);
+        bannerLabel.setForeground(Color.BLUE);
         panel.add(bannerLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
 
-        JButton playAgainButton = new JButton("Play Again");
+        JButton nextLevelButton = new JButton("Next Level");
         JButton menuButton = new JButton("Menu");
         JButton exitButton = new JButton("Exit");
 
-        playAgainButton.setFont(new Font("Arial", Font.BOLD, 24));
+        nextLevelButton.setFont(new Font("Arial", Font.BOLD, 24));
         menuButton.setFont(new Font("Arial", Font.BOLD, 24));
         exitButton.setFont(new Font("Arial", Font.BOLD, 24));
 
         /**
-         * Handles the action event for the Play Again button.
-         * Disposes the current and previous frames and restarts the game.
-         * @param e The action event
+         * Handles the action event triggered when the "Next Level" button is pressed.
+         * Disposes the current frame, proceeds to the next level, and centers the player on the game board.
+         * @param e the event to be processed
          */
-
-        playAgainButton.addActionListener(new ActionListener() {
+        nextLevelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                previousFrame.dispose();
-                GameBoard.doGui();
+                gameBoard.nextLevel();
+                gameBoard.setPlayerToCenter();
             }
         });
 
         /**
-         * Handles the action event for the Menu button.
-         * Disposes the current and previous frames and returns to the menu.
-         * @param e The action event
+         * Handles the action event triggered when the "Menu" button is pressed.
+         * Disposes the current and previous frames and opens the main menu.
+         * @param e the event to be processed
          */
         menuButton.addActionListener(new ActionListener() {
             @Override
@@ -74,9 +75,9 @@ public class GameWonFrame extends JFrame {
         });
 
         /**
-         * Handles the action event for the Exit button.
+         * Handles the action event triggered when the "Exit" button is pressed.
          * Exits the application.
-         * @param e The action event
+         * @param e the event to be processed
          */
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -85,7 +86,7 @@ public class GameWonFrame extends JFrame {
             }
         });
 
-        buttonPanel.add(playAgainButton);
+        buttonPanel.add(nextLevelButton);
         buttonPanel.add(menuButton);
         buttonPanel.add(exitButton);
 

@@ -1,4 +1,8 @@
+package Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+import Game.GameBoard;
+
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +30,8 @@ class GameBoardTest {
         gameBoard.getBomb().setX(0 * GameBoard.TILE_SIZE);
         gameBoard.getBomb().setY(0 * GameBoard.TILE_SIZE);
 
-        assertTrue(gameBoard.isBombAt(0, 0), "Bomb should be at position (0, 0)");
-        assertFalse(gameBoard.isBombAt(3, 4), "Bomb should not be at position (3, 4)");
+        assertTrue(gameBoard.isBombAt(0, 0), "Game.Bomb should be at position (0, 0)");
+        assertFalse(gameBoard.isBombAt(3, 4), "Game.Bomb should not be at position (3, 4)");
     }
 
 }

@@ -1,16 +1,17 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
 
 /**
- * The GameBoard class represents the main gameboard where the game is played.
+ * The Game.GameBoard class represents the main gameboard where the game is played.
  * It handles the drawing of the game elements, game logic, and the user interface components.
  */
 public class GameBoard extends JPanel {
@@ -35,7 +36,7 @@ public class GameBoard extends JPanel {
     public boolean boostSpawned = false;
 
     /**
-     * Constructor for the GameBoard class. It initializes the game map, bomb, player, and enemies.
+     * Constructor for the Game.GameBoard class. It initializes the game map, bomb, player, and enemies.
      * It also sets up the timer and the user interface components.
      */
     public GameBoard() {
@@ -195,7 +196,7 @@ public class GameBoard extends JPanel {
      * Initializes and displays the gameboard GUI.
      */
     public static void doGui() {
-        JFrame frame = new JFrame("GameBoard");
+        JFrame frame = new JFrame("Game.GameBoard");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GameBoard gameBoard = new GameBoard();

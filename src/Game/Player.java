@@ -1,3 +1,5 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The Player class represents a player in the game.
+ * The Game.Player class represents a player in the game.
  * The player can move around the game board, place bombs, pick up boost and interact with other game elements.
  */
 public class Player implements KeyListener {
@@ -33,7 +35,7 @@ public class Player implements KeyListener {
     private boolean isStunned = false;
 
     /**
-     * Constructor for Player object and initializes the player's position and images.
+     * Constructor for Game.Player object and initializes the player's position and images.
      * @param gameBoard the game board on which the player moves
      */
     public Player(GameBoard gameBoard) {

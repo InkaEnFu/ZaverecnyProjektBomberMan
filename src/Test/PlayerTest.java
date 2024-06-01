@@ -1,7 +1,11 @@
+package Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.KeyEvent;
 
+import Game.GameBoard;
+import Game.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +25,7 @@ class PlayerTest {
         KeyEvent keyEvent = new KeyEvent(gameBoard, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_W, 'W');
         player.keyPressed(keyEvent);
         int newY = player.getY();
-        assertEquals(initialY - gameBoard.TILE_SIZE +49, newY, "Player should move up when pressing W");
+        assertEquals(initialY - gameBoard.TILE_SIZE +49, newY, "Game.Player should move up when pressing W");
     }
 
 
@@ -31,7 +35,7 @@ class PlayerTest {
         KeyEvent keyEvent = new KeyEvent(gameBoard, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_S, 'S');
         player.keyPressed(keyEvent);
         int newY = player.getY();
-        assertEquals(initialY + gameBoard.TILE_SIZE-49, newY, "Player should move down when pressing S");
+        assertEquals(initialY + gameBoard.TILE_SIZE-49, newY, "Game.Player should move down when pressing S");
     }
 
     @Test
@@ -40,7 +44,7 @@ class PlayerTest {
         KeyEvent keyEvent = new KeyEvent(gameBoard, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_A, 'A');
         player.keyPressed(keyEvent);
         int newX = player.getX();
-        assertEquals(initialX - gameBoard.TILE_SIZE +49, newX, "Player should move left when pressing A");
+        assertEquals(initialX - gameBoard.TILE_SIZE +49, newX, "Game.Player should move left when pressing A");
     }
 
     @Test
@@ -49,6 +53,6 @@ class PlayerTest {
         KeyEvent keyEvent = new KeyEvent(gameBoard, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_D, 'D');
         player.keyPressed(keyEvent);
         int newX = player.getX();
-        assertEquals(initialX + gameBoard.TILE_SIZE-49, newX, "Player should move right when pressing D");
+        assertEquals(initialX + gameBoard.TILE_SIZE-49, newX, "Game.Player should move right when pressing D");
     }
 }

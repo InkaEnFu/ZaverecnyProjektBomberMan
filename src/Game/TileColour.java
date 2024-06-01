@@ -1,3 +1,5 @@
+package Game;
+
 import java.awt.*;
 
 /**
@@ -11,7 +13,7 @@ enum TileColour {
     private final Color colour;
 
     /**
-     * Constructor for a new TileColour with the specified color.
+     * Constructor for a new Game.TileColour with the specified color.
      * @param colour the color of the tile
      */
 

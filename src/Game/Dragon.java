@@ -1,3 +1,5 @@
+package Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,7 +27,7 @@ public class Dragon implements Enemy {
     private List<Point> fireBallLocations;
 
     /**
-     * Constructor for the Dragon class with the specified position and game board.
+     * Constructor for the Game.Dragon class with the specified position and game board.
      * @param x         the x-coordinate of the dragon
      * @param y         the y-coordinate of the dragon
      * @param gameBoard the gameboard on which the dragon exists
