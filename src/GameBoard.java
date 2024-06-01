@@ -370,4 +370,20 @@ public class GameBoard extends JPanel {
     public List<Enemy> getEnemies() {
         return enemies;
     }
+
+    /**
+     * Returns the player object associated with the game board.
+     * @return the player object
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * Returns the game timer associated with the game board.
+     * @return the game timer
+     */
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
 }

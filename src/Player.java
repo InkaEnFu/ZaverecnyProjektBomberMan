@@ -343,6 +343,22 @@ public class Player implements KeyListener {
     public void setY(int y) {
         this.y = y;
     }
+
+    /**
+     * Gets the x-coordinate of the player.
+     * @return the x-coordinate of the player
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Gets the y-coordinate of the player.
+     * @return the y-coordinate of the player
+     */
+    public int getY() {
+        return y;
+    }
 }
 
 

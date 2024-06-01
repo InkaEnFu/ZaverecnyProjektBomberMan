@@ -99,4 +99,20 @@ public class Bomb {
     public int getY() {
         return y;
     }
+
+    /**
+     * Sets the x-coordinate of the bomb.
+     * @param x
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Sets the y-coordinate of the bomb.
+     * @param y
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
 }
